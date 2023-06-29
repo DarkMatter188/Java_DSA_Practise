@@ -1,0 +1,275 @@
+                                                               Assignment - 4
+
+Answer-1
+import java.util.ArrayList;
+import java.util.List;
+
+public class CommonElementsInThreeArrays {
+    public static List<Integer> findCommonElements(int[] arr1, int[] arr2, int[] arr3) {
+        List<Integer> commonElements = new ArrayList<>();
+        int i = 0, j = 0, k = 0;
+
+        while (i < arr1.length && j < arr2.length && k < arr3.length) {
+            if (arr1[i] == arr2[j] && arr2[j] == arr3[k]) {
+                commonElements.add(arr1[i]);
+                i++;
+                j++;
+                k++;
+            } else if (arr1[i] < arr2[j]) {
+                i++;
+            } else if (arr2[j] < arr3[k]) {
+                j++;
+            } else {
+                k++;
+            }
+        }
+
+        return commonElements;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5};
+        int[] arr2 = {2, 4, 6, 8};
+        int[] arr3 = {1, 3, 5, 7, 9};
+
+        List<Integer> commonElements = findCommonElements(arr1, arr2, arr3);
+
+        System.out.println("Common elements: " + commonElements);
+    }
+}
+
+========================================================================
+Answer-2
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class DistinctIntegersInArrays {
+    public static List<List<Integer>> findDistinctIntegers(int[] nums1, int[] nums2) {
+        List<Integer> distinctNums1 = new ArrayList<>();
+        List<Integer> distinctNums2 = new ArrayList<>();
+
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+
+        for (int num : nums1) {
+            set1.add(num);
+        }
+
+        for (int num : nums2) {
+            set2.add(num);
+        }
+
+        for (int num : nums1) {
+            if (!set2.contains(num)) {
+                distinctNums1.add(num);
+            }
+        }
+
+        for (int num : nums2) {
+            if (!set1.contains(num)) {
+                distinctNums2.add(num);
+            }
+        }
+
+        List<List<Integer>> answer = new ArrayList<>();
+        answer.add(distinctNums1);
+        answer.add(distinctNums2);
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        int[] nums1 = {1, 2, 2, 3, 4, 5};
+        int[] nums2 = {2, 4, 6, 8};
+
+        List<List<Integer>> distinctIntegers = findDistinctIntegers(nums1, nums2);
+
+        System.out.println("Distinct integers in nums1 not present in nums2: " + distinctIntegers.get(0));
+        System.out.println("Distinct integers in nums2 not present in nums1: " + distinctIntegers.get(1));
+    }
+}
+
+========================================================================
+Answer-3
+public class MatrixTranspose {
+    public static int[][] transpose(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        int[][] transposeMatrix = new int[cols][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                transposeMatrix[j][i] = matrix[i][j];
+            }
+        }
+
+        return transposeMatrix;
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 2},
+            {4, 5, 7},
+            {7, 8, 9}
+        };
+
+        int[][] transposeMatrix = transpose(matrix);
+
+        System.out.println("Original Matrix:");
+        printMatrix(matrix);
+
+        System.out.println("Transpose Matrix:");
+        printMatrix(transposeMatrix);
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+}
+
+========================================================================
+Answer-4
+import java.util.Arrays;
+
+public class ArrayPairSum {
+    public static int arrayPairSum(int[] nums) {
+        Arrays.sort(nums);
+        int sum = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            sum += nums[i];
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 4, 3, 2};
+        int maxSum = arrayPairSum(nums);
+        System.out.println("Maximized sum: " + maxSum);
+    }
+}
+
+========================================================================
+Answer-5
+public class StaircaseRows {
+    public static int arrangeCoins(int n) {
+        int rows = 0;
+        int k = 1;
+
+        while (n >= k) {
+            n -= k;
+            k++;
+            rows++;
+        }
+
+        return rows;
+    }
+
+    public static void main(String[] args) {
+        int n = 8;
+        int completeRows = arrangeCoins(n);
+        System.out.println("Number of complete rows: " + completeRows);
+    }
+}
+
+========================================================================
+Answer-6
+import java.util.Arrays;
+
+public class SortedSquares {
+    public static int[] sortedSquares(int[] nums) {
+        int[] result = new int[nums.length];
+        int left = 0;
+        int right = nums.length - 1;
+        int index = nums.length - 1;
+
+        while (left <= right) {
+            int squareLeft = nums[left] * nums[left];
+            int squareRight = nums[right] * nums[right];
+
+            if (squareLeft > squareRight) {
+                result[index] = squareLeft;
+                left++;
+            } else {
+                result[index] = squareRight;
+                right--;
+            }
+
+            index--;
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {-4, -1, 0, 3, 10};
+        int[] sortedSquares = sortedSquares(nums);
+        System.out.println("Sorted squares: " + Arrays.toString(sortedSquares));
+    }
+}
+
+========================================================================
+Answer-7
+public class MaxIntegersCount {
+    public static int maxCount(int m, int n, int[][] ops) {
+        int minRow = m;
+        int minCol = n;
+
+        for (int[] op : ops) {
+            minRow = Math.min(minRow, op[0]);
+            minCol = Math.min(minCol, op[1]);
+        }
+
+        return minRow * minCol;
+    }
+
+    public static void main(String[] args) {
+        int m = 3;
+        int n = 3;
+        int[][] ops = {{2, 2}, {3, 3}};
+        int maxIntegers = maxCount(m, n, ops);
+        System.out.println("Number of maximum integers: " + maxIntegers);
+    }
+}
+
+========================================================================
+Answer-8
+import java.util.Arrays;
+
+public class ArrayRearrange {
+    public static int[] rearrangeArray(int[] nums) {
+        int[] result = new int[nums.length];
+        int xIndex = 0;
+        int yIndex = nums.length / 2;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i % 2 == 0) {
+                result[i] = nums[xIndex];
+                xIndex++;
+            } else {
+                result[i] = nums[yIndex];
+                yIndex++;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 5, 6};
+        int[] rearrangedArray = rearrangeArray(nums);
+        System.out.println("Rearranged array: " + Arrays.toString(rearrangedArray));
+    }
+}
+
+========================================================================
