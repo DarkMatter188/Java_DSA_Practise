@@ -1,0 +1,201 @@
+                                                  Assignment - 5
+
+Answer-1
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        int totalElements = original.length;
+        if (totalElements != m * n) {
+            return new int[0][0];
+        }
+
+        int[][] result = new int[m][n];
+        int index = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                result[i][j] = original[index++];
+            }
+        }
+
+        return result;
+    }
+}
+=======================================================================================================
+Answer-2
+class Solution {
+    public int arrangeCoins(int n) {
+        long left = 0;
+        long right = n;
+        long k;
+
+        while (left <= right) {
+            long mid = left + (right - left) / 2;
+            long curr = mid * (mid + 1) / 2;
+
+            if (curr == n) {
+                return (int) mid;
+            } else if (curr < n) {
+                left = mid + 1;
+                k = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return (int) k;
+    }
+}
+============================================================================================================
+Answer - 3
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        int left = 0;
+        int right = n - 1;
+        int index = n - 1;
+
+        while (left <= right) {
+            int leftSquare = nums[left] * nums[left];
+            int rightSquare = nums[right] * nums[right];
+
+            if (leftSquare > rightSquare) {
+                result[index] = leftSquare;
+                left++;
+            } else {
+                result[index] = rightSquare;
+                right--;
+            }
+
+            index--;
+        }
+
+        return result;
+    }
+}
+=================================================================================================================
+Answer - 4
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> findDistinct(int[] nums1, int[] nums2) {
+        Set<Integer> s1 = new HashSet<>();
+        Set<Integer> s2 = new HashSet<>();
+
+        for (int num : nums1) {
+            set1.add(num);
+        }
+
+        for (int num : nums2) {
+            set2.add(num);
+        }
+
+        Set<Integer> diff1 = new HashSet<>(s1);
+        diff1.removeAll(s2);
+
+        Set<Integer> diff2 = new HashSet<>(s2);
+        diff2.removeAll(s1);
+
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>(diff1));
+        result.add(new ArrayList<>(diff2));
+
+        return result;
+    }
+}
+=============================================================================================================
+Answer - 5
+class Solution {
+    public int findTheDistance(int[] arr1, int[] arr2, int d) {
+        int distance = 0;
+        for (int num1 : arr1) {
+            boolean isValid = true;
+            for (int num2 : arr2) {
+                if (Math.abs(num1 - num2) <= d) {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid) {
+                distance++;
+            }
+        }
+        return distance;
+    }
+}
+==============================================================================================================
+Answer -6
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i=0;i<nums.length;i++){
+        int idx = Math.abs(nums[i])-1;
+        if(nums[idx] < 0){
+            list.add(idx + 1);
+        }
+        nums[idx] = -nums[idx];
+        }
+        return list;
+    }
+}
+==============================================================================================================
+Answer-7
+class Solution {
+    public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length-1;
+        while(left < right){
+            int mid = left + (right-left)/2;
+
+            if(mid >0 && nums[mid] < nums[mid-1]){
+                return nums[mid];
+            }
+            else if(nums[mid] >= nums[left] && nums[mid] >= nums[right]){
+                left = mid+1;
+            }
+            else{
+                right = mid-1;
+            }
+
+        }
+        return nums[left];
+    }
+}
+==================================================================================================================
+Answer-8
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int[] findOriginalArray(int[] changed) {
+        if (changed.length % 2 != 0) {
+            return new int[0]; // If the length is odd, it can't be a doubled array
+        }
+
+        Set<Integer> originalSet = new HashSet<>();
+
+        for (int num : changed) {
+            if (originalSet.contains(num / 2)) {
+                originalSet.remove(num / 2);
+            } else {
+                originalSet.add(num);
+            }
+        }
+
+        if (originalSet.size() > 0) {
+            return new int[0]; // Some elements were not paired, so it's not a doubled array
+        }
+
+        int[] original = new int[changed.length / 2];
+        int index = 0;
+        for (int num : changed) {
+            original[index++] = num / 2;
+        }
+
+        return original;
+    }
+}
+==================================================================================================================
+
+
+
