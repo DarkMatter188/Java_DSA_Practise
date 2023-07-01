@@ -1,0 +1,31 @@
+                                                         Assignment - 5
+Answer - 1
+class Solution {
+    public int[] diStringMatch(String s) {
+        List<Integer> output = new ArrayList<Integer>();
+        int low = 0;
+        int high = s.length();
+        char ch[] = s.toCharArray();
+        for(char c : ch){
+            if(c == 'I'){
+                output.add(low);
+                low++;
+            }
+            else{
+                output.add(high);
+                high--;
+            }
+
+        }
+        output.add(low);
+        //Convert list to Array
+        int[] res = new int[ch.length+1];
+        for(int i = 0; i < output.size(); i++){
+            res[i] = output.get(i);
+        }
+        return res;
+
+    }
+}
+====================================================================================================================
+Answer-2
