@@ -29,5 +29,288 @@ class Solution {
 }
 ====================================================================================================================
 Answer-2
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        //Row-major form of 2D matrix
+        int m = matrix.length;
+        int n = matrix[0].length;
+        if(m==0){
+            return false;
+        }
+        //Apply BS to 2D Array compute midIdx
 
+        int low = 0;
+        int high = m * n - 1;
+        int midIdx,midEle;
+        int rowIdx;
+        int colIdx;
+
+        while(low <= high){
+            midIdx = low + (high-low)/2;     
+            rowIdx = midIdx / n;
+            colIdx = midIdx % n;
+            midEle = matrix[rowIdx][colIdx];
+            
+            if(target == midEle){
+                return true;
+            }
+            else{
+                if(target < midEle){
+                        high = midIdx - 1;
+                }
+                else{
+                        low = midIdx + 1;
+                }
+            }
+        }
+    return false;
+    }
+}
+====================================================================================================================
+Answer - 3
+class Solution {
+    public boolean validMountainArray(int[] arr) {
+        int n = arr.length;
+        if(arr.length < 3){
+            return false;
+        }
+        int i = 0;
+        while(i < n-1 && arr[i] < arr[i+1]){
+            i++;
+        }
+        if(i ==0 || i == n-1){
+            return false;
+        }
+
+        while(i < n-1 && arr[i] > arr[i+1]){
+            i++;
+        }
+        return i == n-1;
+    }
+}
+=======================================================================================================================
+
+Answer - 4
+import java.util.HashMap;
+import java.util.Map;
+
+public class ContiguousSubarray {
+    public static int findMaxLength(int[] nums) {
+        int maxLength = 0;
+        int count = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                count--;
+            } else {
+                count++;
+            }
+
+            if (map.containsKey(count)) {
+                maxLength = Math.max(maxLength, i - map.get(count));
+            } else {
+                map.put(count, i);
+            }
+        }
+
+        return maxLength;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {0, 1, 0, 0, 1, 1, 0};
+        int maxLength = findMaxLength(nums);
+        System.out.println(maxLength);
+    }
+}
+=============================================================================================================
+Answer -5 
+import java.util.Arrays;
+
+public class MinimumProductSum {
+    public static int minProductSum(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        int minProductSum = 0;
+        for (int i = 0; i < n; i++) {
+            minProductSum += nums1[i] * nums2[n - i - 1];
+        }
+
+        return minProductSum;
+    }
+
+    public static void main(String[] args) {
+        int[] nums1 = {1, 2, 3, 4};
+        int[] nums2 = {5, 2, 3, 1};
+
+        int minProductSum = minProductSum(nums1, nums2);
+        System.out.println(minProductSum);
+    }
+}
+====================================================================================================================
+Answer-6
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class DoubledArray {
+    public static int[] findOriginalArray(int[] changed) {
+        int n = changed.length;
+        if (n % 2 != 0) {
+            return new int[0];
+        }
+
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : changed) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        List<Integer> originalList = new ArrayList<>();
+        for (int num : changed) {
+            if (frequencyMap.containsKey(num) && frequencyMap.get(num) > 0) {
+                if (num % 2 != 0 || !frequencyMap.containsKey(num / 2) || frequencyMap.get(num / 2) == 0) {
+                    return new int[0];
+                }
+                originalList.add(num / 2);
+                frequencyMap.put(num / 2, frequencyMap.get(num / 2) - 1);
+            }
+        }
+
+        int[] original = new int[n / 2];
+        for (int i = 0; i < originalList.size(); i++) {
+            original[i] = originalList.get(i);
+        }
+
+        return original;
+    }
+
+    public static void main(String[] args) {
+        int[] changed = {6, 3, 0, 1, 2, 12, 9, 5};
+        int[] original = findOriginalArray(changed);
+
+        if (original.length == 0) {
+            System.out.println("Empty array");
+        } else {
+            for (int num : original) {
+                System.out.print(num + " ");
+            }
+        }
+    }
+}
+========================================================================================================
+Answer-7
+public class SpiralMatrix {
+    public static int[][] generateMatrix(int n) {
+        int[][] matrix = new int[n][n];
+        int num = 1;
+        int rowStart = 0, rowEnd = n - 1;
+        int colStart = 0, colEnd = n - 1;
+
+        while (num <= n * n) {
+            // Traverse right
+            for (int col = colStart; col <= colEnd; col++) {
+                matrix[rowStart][col] = num++;
+            }
+            rowStart++;
+
+            // Traverse down
+            for (int row = rowStart; row <= rowEnd; row++) {
+                matrix[row][colEnd] = num++;
+            }
+            colEnd--;
+
+            // Traverse left
+            if (rowStart <= rowEnd) {
+                for (int col = colEnd; col >= colStart; col--) {
+                    matrix[rowEnd][col] = num++;
+                }
+                rowEnd--;
+            }
+
+            // Traverse up
+            if (colStart <= colEnd) {
+                for (int row = rowEnd; row >= rowStart; row--) {
+                    matrix[row][colStart] = num++;
+                }
+                colStart++;
+            }
+        }
+
+        return matrix;
+    }
+
+    public static void main(String[] args) {
+        int n = 4;
+        int[][] matrix = generateMatrix(n);
+
+        // Print the matrix
+        for (int[] row : matrix) {
+            for (int num : row) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+========================================================================================================
+Answer-8
+import java.util.HashMap;
+import java.util.Map;
+
+public class SparseMatrixMultiplication {
+    public static int[][] multiply(int[][] mat1, int[][] mat2) {
+        int m = mat1.length;
+        int k = mat1[0].length;
+        int n = mat2[0].length;
+
+        int[][] result = new int[m][n];
+        Map<Integer, Map<Integer, Integer>> sparseMat1 = new HashMap<>();
+
+        // Convert mat1 to sparse matrix representation
+        for (int i = 0; i < m; i++) {
+            Map<Integer, Integer> row = new HashMap<>();
+            for (int j = 0; j < k; j++) {
+                if (mat1[i][j] != 0) {
+                    row.put(j, mat1[i][j]);
+                }
+            }
+            sparseMat1.put(i, row);
+        }
+
+        // Perform matrix multiplication
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int sum = 0;
+                for (int p = 0; p < k; p++) {
+                    if (sparseMat1.containsKey(i) && sparseMat1.get(i).containsKey(p)) {
+                        sum += sparseMat1.get(i).get(p) * mat2[p][j];
+                    }
+                }
+                result[i][j] = sum;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[][] mat1 = {{1, 0, 0}, {-1, 0, 3}};
+        int[][] mat2 = {{7, 0, 0}, {0, 0, 0}, {0, 0, 1}};
+
+        int[][] result = multiply(mat1, mat2);
+
+        // Print the result matrix
+        for (int[] row : result) {
+            for (int num : row) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+====================================================================================================================
 
