@@ -1,0 +1,385 @@
+                         Assignment - 8
+
+Answer - 1
+public class LowestASCIISum {
+    public static int minimumDeleteSum(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+
+        // Fill in the first row
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = dp[0][j - 1] + s2.charAt(j - 1);
+        }
+
+        // Fill in the first column
+        for (int i = 1; i <= m; i++) {
+            dp[i][0] = dp[i - 1][0] + s1.charAt(i - 1);
+        }
+
+        // Fill in the rest of the table
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(dp[i - 1][j] + s1.charAt(i - 1), dp[i][j - 1] + s2.charAt(j - 1));
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
+
+    public static void main(String[] args) {
+        String s1 = "sea";
+        String s2 = "eat";
+        int minSum = minimumDeleteSum(s1, s2);
+        System.out.println("Lowest ASCII Sum: " + minSum);
+    }
+}
+================================================================================================================================
+Answer - 2
+import java.util.Stack;
+
+public class ValidParenthesis {
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '*') {
+                stack.push(c);
+            } else if (c == ')') {
+                if (!stack.isEmpty() && (stack.peek() == '(' || stack.peek() == '*')) {
+                    stack.pop();
+                } else {
+                    stack.push(c);
+                }
+            }
+        }
+
+        int openCount = 0;
+
+        while (!stack.isEmpty()) {
+            char top = stack.pop();
+
+            if (top == '(') {
+                openCount++;
+            } else if (top == ')' && openCount > 0) {
+                openCount--;
+            } else {
+                return false;
+            }
+        }
+
+        return openCount == 0;
+    }
+
+    public static void main(String[] args) {
+        String s = "(*()";
+        boolean isValidString = isValid(s);
+        System.out.println("Is valid: " + isValidString);
+    }
+}
+======================================================================================================================
+Answer - 3
+public class MinStepsToSame {
+    public static int minSteps(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+
+        // Calculate the LCS
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        int lcsLength = dp[m][n];
+        int minSteps = (m - lcsLength) + (n - lcsLength);
+
+        return minSteps;
+    }
+
+    public static void main(String[] args) {
+        String word1 = "sea";
+        String word2 = "eat";
+        int minSteps = minSteps(word1, word2);
+        System.out.println("Minimum Steps: " + minSteps);
+    }
+}
+==============================================================================================================
+Answer - 4
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class BinaryTreeFromString {
+    public static TreeNode str2tree(String s) {
+        if (s.isEmpty()) {
+            return null;
+        }
+
+        int firstParen = s.indexOf("(");
+
+        int val;
+        if (firstParen == -1) {
+            val = Integer.parseInt(s);
+        } else {
+            val = Integer.parseInt(s.substring(0, firstParen));
+        }
+
+        TreeNode root = new TreeNode(val);
+
+        if (firstParen == -1) {
+            return root;
+        }
+
+        int start = firstParen;
+        int openParenCount = 0;
+        for (int i = start; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                openParenCount++;
+            } else if (s.charAt(i) == ')') {
+                openParenCount--;
+            }
+
+            if (openParenCount == 0 && start == firstParen) {
+                root.left = str2tree(s.substring(start + 1, i));
+                start = i + 1;
+            } else if (openParenCount == 0) {
+                root.right = str2tree(s.substring(start + 1, i));
+            }
+        }
+
+        return root;
+    }
+
+    public static void inorderTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        inorderTraversal(root.left);
+        System.out.print(root.val + " ");
+        inorderTraversal(root.right);
+    }
+
+    public static void main(String[] args) {
+        String s = "4(2(3)(1))(6(5))";
+        TreeNode root = str2tree(s);
+
+        System.out.print("Inorder Traversal: ");
+        inorderTraversal(root);
+    }
+}
+==========================================================================================================================
+Answer - 5
+public class StringCompression {
+    public static int compress(char[] chars) {
+        int n = chars.length; // Length of the original array
+
+        int write = 0; // Pointer to track the position to write the compressed characters
+
+        for (int read = 0; read < n; read++) {
+            int count = 1; // Count of consecutive repeating characters
+
+            // Check if the next character is the same
+            while (read + 1 < n && chars[read] == chars[read + 1]) {
+                count++;
+                read++;
+            }
+
+            // Write the character and its count in the compressed form
+            chars[write++] = chars[read];
+
+            // If the count is greater than 1, write its digits as separate characters
+            if (count > 1) {
+                String countStr = String.valueOf(count);
+                for (char c : countStr.toCharArray()) {
+                    chars[write++] = c;
+                }
+            }
+        }
+
+        return write;
+    }
+
+    public static void main(String[] args) {
+        char[] chars = {'a', 'a', 'b', 'b', 'c', 'c', 'c'};
+        int newLength = compress(chars);
+
+        System.out.print("Compressed Array: ");
+        for (int i = 0; i < newLength; i++) {
+            System.out.print(chars[i] + " ");
+        }
+        System.out.println();
+        System.out.println("New Length: " + newLength);
+    }
+}
+========================================================================================================================
+Answer - 6
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Anagrams {
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+
+        // Create frequency maps for strings p and the sliding window in s
+        Map<Character, Integer> targetMap = new HashMap<>();
+        Map<Character, Integer> windowMap = new HashMap<>();
+
+        for (char ch : p.toCharArray()) {
+            targetMap.put(ch, targetMap.getOrDefault(ch, 0) + 1);
+        }
+
+        int left = 0; // Left pointer of the sliding window
+        int right = 0; // Right pointer of the sliding window
+        int matched = 0; // Counter to track the matched characters
+
+        while (right < s.length()) {
+            char currentChar = s.charAt(right);
+            windowMap.put(currentChar, windowMap.getOrDefault(currentChar, 0) + 1);
+
+            // Check if the current character is in the target map and the frequencies match
+            if (targetMap.containsKey(currentChar) && windowMap.get(currentChar).equals(targetMap.get(currentChar))) {
+                matched++;
+            }
+
+            // Shrink the window if it exceeds the length of p
+            if (right - left + 1 > p.length()) {
+                char leftChar = s.charAt(left);
+                windowMap.put(leftChar, windowMap.get(leftChar) - 1);
+
+                // If the frequency becomes zero, remove the character from the window map
+                if (windowMap.get(leftChar) == 0) {
+                    windowMap.remove(leftChar);
+                }
+
+                // Check if the removed character was a match
+                if (targetMap.containsKey(leftChar) && windowMap.getOrDefault(leftChar, 0).equals(targetMap.get(leftChar) - 1)) {
+                    matched--;
+                }
+
+                left++; // Slide the window to the right
+            }
+
+            // Check if all characters in p have been matched
+            if (matched == targetMap.size()) {
+                result.add(left); // Add the start index of the anagram
+            }
+
+            right++; // Slide the window to the right
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String s = "cbaebabacd";
+        String p = "abc";
+        List<Integer> indices = findAnagrams(s, p);
+
+        System.out.println("Start Indices of Anagrams: " + indices);
+    }
+}
+====================================================================================================================================
+Answer - 7
+import java.util.Stack;
+
+public class StringDecoding {
+    public static String decodeString(String s) {
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> stringStack = new Stack<>();
+
+        StringBuilder currentString = new StringBuilder();
+        int currentCount = 0;
+
+        for (char ch : s.toCharArray()) {
+            if (Character.isDigit(ch)) {
+                currentCount = currentCount * 10 + (ch - '0');
+            } else if (ch == '[') {
+                countStack.push(currentCount);
+                stringStack.push(currentString);
+
+                currentCount = 0;
+                currentString = new StringBuilder();
+            } else if (ch == ']') {
+                StringBuilder decodedString = stringStack.pop();
+                int repeatCount = countStack.pop();
+
+                for (int i = 0; i < repeatCount; i++) {
+                    decodedString.append(currentString);
+                }
+
+                currentString = decodedString;
+            } else {
+                currentString.append(ch);
+            }
+        }
+
+        return currentString.toString();
+    }
+
+    public static void main(String[] args) {
+        String encodedString = "3[a2[c]]";
+        String decodedString = decodeString(encodedString);
+
+        System.out.println("Decoded String: " + decodedString);
+    }
+}
+=====================================================================================================================
+Answer - 8
+public class LetterSwap {
+    public static boolean canSwapLetters(String s, String goal) {
+        if (s.length() != goal.length()) {
+            return false; // Lengths are different, swapping not possible
+        }
+
+        int diffCount = 0; // Count of differing positions
+
+        int[] diffIndices = new int[2]; // Array to store the differing indices
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != goal.charAt(i)) {
+                if (diffCount == 2) {
+                    return false; // More than two differing positions, swapping not possible
+                }
+                diffIndices[diffCount] = i;
+                diffCount++;
+            }
+        }
+
+        if (diffCount != 2) {
+            return false; // Number of differing positions is not exactly two, swapping not possible
+        }
+
+        // Check if swapping the characters at the differing indices results in goal
+        return s.charAt(diffIndices[0]) == goal.charAt(diffIndices[1]) && s.charAt(diffIndices[1]) == goal.charAt(diffIndices[0]);
+    }
+
+    public static void main(String[] args) {
+        String s = "abcd";
+        String goal = "cbad";
+        boolean canSwap = canSwapLetters(s, goal);
+
+        System.out.println("Can Swap Letters: " + canSwap);
+    }
+}
+=============================================================================================================================
