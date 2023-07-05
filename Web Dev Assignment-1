@@ -1,0 +1,431 @@
+                                                   Web Development Core Module Assignment - 1
+
+Answer -1
+The declaration <!DOCTYPE html> specifically indicates that the document is written in HTML5, 
+the latest version of HTML. HTML5 introduced many new features and improvements to the language and is widely supported by modern web browsers. 
+By including this DOCTYPE declaration, you ensure that the browser uses the appropriate rendering mode for HTML5.
+
+In summary, the <!DOCTYPE html> declaration is not a regular HTML tag but rather a document type declaration used to specify the version of HTML being used in the document, 
+particularly HTML5.
+
+=================================================================================================================================================================
+
+Answer - 2
+Semantic tags carry meaning for the tags. It gives information about tags used like header, aside etc. represent different sections present in a web-page.
+Below are the types of Semantic tags used in HTML5
+1.<header>: Represents the introductory section of a document or a section of the page containing the site's header.
+2.<nav>: Defines a section of the page for navigation links.
+3.<main>: Specifies the main content of the document.
+4.<article>: Represents a self-contained composition or content, such as a blog post, news article, or forum post.
+5.<section>: Defines a standalone section of content within a document.
+6.<aside>: Represents content that is tangentially related to the main content, often presented as a sidebar or a standalone block.
+7.<footer>: Defines the footer of a document or a section, typically containing information about the author, copyright notice, or contact details.
+
+The use of semantic tags brings several benefits:
+
+1>Improved accessibility: Semantic tags provide a clear structure to assistive technologies like screen readers, 
+helping users with disabilities to navigate and understand the content more effectively.
+2>Search engine optimization (SEO): Search engines can better understand the content and context of a page when semantic tags are used, 
+potentially improving search rankings and visibility.
+3>Code readability and maintainability: Semantic tags make the HTML code more readable and self-explanatory, making it easier for developers to understand and maintain the codebase.
+====================================================================================================================================================================
+
+Answer - 3
+HTML Tags: HTML tags are the markup symbols used to define elements within an HTML document.
+They consist of angle brackets ("<" and ">") and are typically written in pairs: an opening tag and a closing tag. 
+For example, <p> is an opening tag, and </p> is a closing tag. 
+Tags define the structure and semantics of the content within an HTML document.
+
+Elements:  HTML elements are composed of tags and the content that resides between them. 
+An element consists of an opening tag, the content, and a closing tag. 
+For example, the element <p>Hello, world!</p> contains the opening tag <p>, the content "Hello, world!", and the closing tag </p>. 
+Elements are the building blocks of an HTML document and represent the various components or parts of a web page, such as paragraphs, headings, links, images, and more.
+
+================================================================================================================================================================
+
+Answer - 4
+A sample HTML code for building resume is as below-
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1, h2, p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <h1>John Doe</h1>
+    <p>Web Developer</p>
+    <p>john.doe@email.com</p>
+    <p>123-456-7890</p>
+  </div>
+
+  <div class="section">
+    <h2>Education</h2>
+    <p>Bachelor of Science in Computer Science</p>
+    <p>University of Example</p>
+    <p>Graduated in 2020</p>
+  </div>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <h3>Web Developer - ABC Company</h3>
+    <p>2019 - Present</p>
+    <ul>
+      <li>Developed and maintained company websites using HTML, CSS, and JavaScript.</li>
+      <li>Collaborated with design and marketing teams to implement website features and enhancements.</li>
+      <li>Optimized websites for performance and search engine optimization (SEO).</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML5</li>
+      <li>CSS3</li>
+      <li>JavaScript</li>
+      <li>Responsive Web Design</li>
+      <li>Version Control (Git)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Projects</h2>
+    <h3>Personal Portfolio Website</h3>
+    <p>Designed and developed a responsive personal portfolio website to showcase my projects and skills.</p>
+    <h3>E-commerce Website</h3>
+    <p>Created an online store using HTML, CSS, and JavaScript, allowing users to browse and purchase products.</p>
+  </div>
+</body>
+</html>
+============================================================================================================================================
+
+Answer - 5
+Below HTML Code is used to describe summary of picture-
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Webpage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    ul{
+      display : flex;
+      flex-direction : column;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+    }
+    
+    table {
+      margin-bottom: 20px;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 10px;
+    }
+    
+    .footer {
+      text-align: center;
+      background-color: #f2f2f2;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img src="your_image.jpg" alt="My Image">
+  <h1>My Timetable</h1>
+  <table>
+    <tr>
+      <th>Day</th>
+      <th>Time</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td>Monday</td>
+      <td>9:00 AM - 11:00 AM</td>
+      <td>Meeting</td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td>2:00 PM - 4:00 PM</td>
+      <td>Training</td>
+    </tr>
+    <tr>
+      <td>Wednesday</td>
+      <td>10:00 AM - 12:00 PM</td>
+      <td>Presentation</td>
+    </tr>
+    <tr>
+      <td>Thursday</td>
+      <td>1:00 PM - 3:00 PM</td>
+      <td>Project Discussion</td>
+    </tr>
+  </table>
+  <div class="container">
+    <h2>Contact Form</h2>
+    <form>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="footer">
+<h1> The following things are important for being a programmer</h1>
+<ul>
+  <li> A problem solving mindset</li>
+  <li>
+    <ul>Consistency
+     <li> Clean code </li>
+    <li>Thorough knowledge of core concepts</li>
+    <li> Readable code</li>
+  </ul>
+
+</li>
+<li>
+Speed
+</li>
+</ul>
+    <p>Additional content in the footer.</p>
+  </div>
+</body>
+</html>
+=============================================================================================================================================
+
+Answer - 6
+HTML5 Introduced various feature enhancements as compared to HTML as described below-
+1.Rich Multimedia Support: HTML5 provides native support for multimedia elements, such as <video> and <audio>, 
+eliminating the need for third-party plugins like Flash. This allows for seamless integration and playback of media content directly within web pages.
+
+2.Enhanced Semantics: HTML5 introduced new semantic elements like <header>, <nav>, <section>, <article>, and more. 
+These elements enable developers to create clearer, more structured, and meaningful markup, improving accessibility and search engine optimization (SEO).
+
+3.Mobile-Friendly and Responsive Design: HTML5 introduced features like <canvas> for dynamic graphics and animations, as well as improved form input types and attributes, 
+including date pickers, sliders, and validation. 
+These advancements facilitated the development of mobile-friendly and responsive web designs, enabling better user experiences across different devices.
+
+4.Offline Web Applications: HTML5 introduced the Application Cache (<cache manifest>) and Web Storage (localStorage and sessionStorage) features. 
+These enable developers to create web applications that can work offline, store data locally, and provide better performance and offline user experiences.
+
+5.Improved APIs: HTML5 brought new APIs that extend the capabilities of web applications. 
+These include the Geolocation API for accessing location information, the Drag and Drop API for intuitive interactions, 
+the Web Workers API for running scripts in the background, and the WebSockets API for real-time communication between client and server, among others.
+
+=================================================================================================================================================
+
+Answer - 7
+To make a music player app without any functionality using basic HTML and CSS are-
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    .music-player {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .music-player img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+    
+    .music-player p {
+      margin: 0;
+    }
+    
+    .music-player button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Music Player</h1>
+  <div class="music-player">
+    <img src="album_cover.jpg" alt="Album Cover">
+    <p>Song Title</p>
+    <p>Artist Name</p>
+    <button>Play/Pause</button>
+  </div>
+</body>
+</html>
+=========================================================================================================================
+
+Answer - 8
+<img> tag: The <img> tag is used to embed an image into an HTML document. It is a self-closing tag and does not require a closing tag. 
+It is primarily used to display images on a web page. Here's an example of how the <img> tag is used:
+<img src="image.jpg" alt="Image Description">
+
+
+<figure> tag: The <figure> tag represents a self-contained piece of content within an HTML document, often used for images, illustrations, diagrams, code snippets, or other media. 
+It is used to group related content and provide a semantic structure. Unlike the <img> tag, the <figure> tag requires a closing tag.
+<figure>
+  <img src="image.jpg" alt="Image Description">
+  <figcaption>Caption for the Image</figcaption>
+</figure>
+====================================================================================================================================
+
+Answer - 9
+HTML Tags: HTML tags are used to define elements within an HTML document. 
+Tags are represented by angle brackets ("<" and ">") and are typically written in pairs: an opening tag and a closing tag. 
+For example, <p> is an opening tag, and </p> is a closing tag. Tags define the structure and semantics of the content within an HTML document.
+
+HTML Attributes: HTML attributes provide additional information or modify the behavior of HTML elements. 
+They are used within the opening tag of an element and are represented by attribute name-value pairs. 
+Attributes provide extra details about elements, such as styling, linking, accessibility, and more.
+
+Here are some examples of global attributes that can be used with various HTML elements:
+1.ID =  to give unique identifier to tags.
+2.Class = to group multiple elements of HTML.
+3.style: Defines inline CSS styles to be applied to an element.
+4.title: Specifies additional information about an element, typically displayed as a tooltip.
+5.href: Specifies the URL or destination of a link.
+6.alt: Provides alternative text for an image, which is displayed if the image cannot be loaded or for accessibility purposes.
+
+
+===========================================================================================================================================
+
+Answer - 10
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timetable</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Timetable</h1>
+  <table>
+    <tr>
+      <th>Day</th>
+      <th>Schedule (Begin)</th>
+      <th>Schedule (End)</th>
+      <th>Topic</th>
+    </tr>
+    <tr>
+      <td>Monday</td>
+      <td>9:00 AM</td>
+      <td>11:00 AM</td>
+      <td>Meeting</td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td>2:00 PM</td>
+      <td>4:00 PM</td>
+      <td>Training</td>
+    </tr>
+    <tr>
+      <td>Wednesday</td>
+      <td>10:00 AM</td>
+      <td>12:00 PM</td>
+      <td>Presentation</td>
+    </tr>
+  </table>
+</body>
+</html>
+The above code will replicate the contents as desvribed in above image.
+======================================================================================================================================
+
+
