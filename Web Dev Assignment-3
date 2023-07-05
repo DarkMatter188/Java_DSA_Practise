@@ -1,0 +1,548 @@
+                                                                      Web Dev Assignment - 3
+
+Answer - 1
+A media query in CSS is a feature that allows you to apply different styles based on various device characteristics and conditions, 
+such as screen size, screen resolution, device orientation, and more. 
+It enables you to create responsive designs that adapt and respond to different viewing environments. The purpose of media queries is to provide a way to target specific devices or screen sizes and apply tailored styles to optimize the layout and presentation of your web pages.
+
+Media queries are typically used in conjunction with CSS rules to define different styles based on specific conditions. 
+Here's the basic syntax of a media query:
+
+@media mediaType and (mediaFeature) {
+  /* CSS rules to apply */
+}
+
+mediaType refers to the type of media being targeted, such as screen for computer screens or print for printing devices.
+mediaFeature represents the condition or characteristic you want to target, such as max-width, orientation, resolution, etc.
+For example, you can use a media query to adjust the styles when the screen width is less than or equal to a specific value:
+
+@media screen and (max-width: 768px) {
+  /* CSS rules to apply when screen width is 768 pixels or less */
+}
+
+======================================================================================================================================================
+
+Answer - 2
+To define a media query in CSS, you use the @media rule followed by the specific conditions or characteristics you want to target.
+Here's the basic syntax for defining a media query:
+
+css
+Copy code
+@media mediaType and (mediaFeature) {
+  /* CSS rules to apply */
+}
+Let's break down the different parts of a media query:
+
+@media: It's the keyword that signals the start of a media query rule.
+
+mediaType: It represents the type of media you want to target, such as screen, print, speech, etc. The screen media type is commonly used for targeting computer screens and mobile devices.
+
+mediaFeature: It specifies the condition or characteristic you want to apply styles based on. Media features can include properties like width, height, orientation, resolution, and more. You can use comparison operators (<, >, =, etc.) to define specific conditions.
+
+CSS rules: These are the styles that you want to apply when the specified conditions are met.
+
+Here's an example of a media query that targets screens with a maximum width of 768 pixels:
+@media screen and (max-width: 768px) {
+  /* CSS rules to apply when screen width is 768 pixels or less */
+  body {
+    font-size: 14px;
+    background-color: lightgray;
+  }
+}
+
+
+In this example, the CSS rules inside the media query
+block will only apply when the screen media type is targeted and the maximum width of the viewport is 768 pixels or less. 
+Within the media query block, you can define any desired CSS properties and values to style the elements accordingly.
+
+=============================================================================================================================================================
+
+Answer - 3
+n responsive web design, breakpoints are specific points or thresholds in the viewport width where the layout of a website or web application adjusts to accommodate different screen sizes. Breakpoints are used to define the specific screen sizes at which the layout needs to change to provide an optimal user experience.
+
+Media queries are used to apply different CSS styles based on specific conditions, including breakpoints. 
+By defining breakpoints in media queries, you can target different ranges of screen sizes and apply corresponding styles accordingly.
+
+Here's an example of how breakpoints are used in media queries:
+/* Desktop styles */
+@media screen and (min-width: 1024px) {
+  /* CSS rules for desktop layout */
+  .container {
+    width: 960px;
+    margin: 0 auto;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  /* CSS rules for tablet layout */
+  .container {
+    width: 750px;
+    margin: 0 auto;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 767px) {
+  /* CSS rules for mobile layout */
+  .container {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+
+Desktop: This media query targets screen widths with a minimum of 1024 pixels or larger.
+It applies CSS rules that adjust the container width and center it horizontally.
+
+Tablet: This media query targets screen widths between 768 and 1023 pixels.
+It applies CSS rules that adjust the container width and center it horizontally specifically for tablet-sized screens.
+
+Mobile: This media query targets screen widths up to 767 pixels. 
+It applies CSS rules that adjust the container width to 100% and remove any horizontal margins.
+
+==========================================================================================================================================================
+
+Answer - 4
+Media queries for print media serve the purpose of defining specific styles and layouts for printed documents.
+When you specify media queries for print, you can control how the content of your web page is presented when users choose to print it or generate a PDF.
+
+The purpose of using media queries for print media is to optimize the printed output by adjusting the styling,
+layout, and content for the printing context. Some common use cases for using media queries for print include:
+
+
+Removing unnecessary content: You can selectively hide or remove elements that are not relevant or useful when printing, 
+such as navigation menus, advertisements, or interactive components.
+
+Modifying typography: You can adjust font sizes, line heights, and other typographic properties to improve readability in printed form. 
+This ensures that the printed document is legible and visually appealing.
+
+Adjusting page breaks: You can control how content is split across different pages by using CSS properties like page-break-before and page-break-after. 
+This helps to avoid awkward page breaks and ensures logical content flow.
+
+Changing background and colors: You can modify the background color, text color, 
+and other visual elements to make the printed output more suitable for printing on paper or other media.
+
+Applying specific styling: You can define specific styles for headings, lists, tables, 
+and other elements to ensure they are properly formatted and structured in the printed version.
+
+@media print {
+  /* CSS rules for print media */
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  .no-print {
+    display: none;
+  }
+}
+==============================================================================================================================================
+Answer - 5
+he purpose of the orientation media feature is to target and apply specific styles based on the orientation of the device's viewport.
+It allows you to adjust the layout and styling of your web page based on whether the device is in a portrait or landscape orientation.
+
+The orientation media feature has two possible values:
+
+portrait: This value represents a vertical orientation, where the height of the viewport is greater than the width.
+It is typically associated with devices held in a vertical position, such as smartphones or tablets held upright.
+
+landscape: This value represents a horizontal orientation, where the width of the viewport is greater than the height.
+It is typically associated with devices in a horizontal position, such as landscape-oriented monitors, laptops, or devices in landscape mode.
+
+@media screen and (orientation: landscape) {
+  /* CSS rules for landscape orientation */
+  .header {
+    height: 80px;
+    background-color: #f0f0f0;
+  }
+  .sidebar {
+    width: 200px;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  /* CSS rules for portrait orientation */
+  .header {
+    height: 60px;
+    background-color: #ccc;
+  }
+  .sidebar {
+    width: 100px;
+  }
+}
+==================================================================================================================================================
+
+Answer - 6
+Below is an example of a simple webpage that replicates a one-page landing page design and includes a responsive layout with an HTML video. In this example, 
+the video has the "controls" attribute added to ensure compatibility with browsers that don't allow playing videos without controls.
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Landing Page</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set a full-width background image */
+    body {
+      background-image: url('background-image.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Center the content vertically and horizontally */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Style the video container */
+    .video-container {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+    }
+
+    /* Style the video */
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Style the video controls */
+    .video-controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .video-controls button {
+      color: #fff;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .video-controls button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="video-container">
+      <video controls>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-controls">
+        <button class="play-button">&#9658;</button>
+        <button class="pause-button">&#10074;&#10074;</button>
+        <button class="stop-button">&#9632;</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+The CSS styles set a full-width background image, center the content vertically and horizontally using flexbox, and style the video container and controls.
+The video element includes the controls attribute to ensure compatibility with browsers that require it for playing videos.
+Inside the video element, you can add multiple source elements with different video formats to provide cross-browser support.
+The video controls are added as a separate container below the video element, with buttons for play, pause, and stop functionalities.
+
+===========================================================================================================================================================
+
+Answer - 7
+Here's an example of a webpage that displays an image gallery using CSS Grid and media queries for a responsive layout. 
+The gallery will display multiple images per row on large screens and collapse into a single column on small screens:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Gallery</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Style the gallery container */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Style the gallery item */
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 5px;
+    }
+
+    /* Style the gallery item image */
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s;
+    }
+
+    /* Apply hover effect on gallery item image */
+    .gallery-item img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Media query for small screens */
+    @media screen and (max-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="image1.jpg" alt="Image 1">
+    </div>
+    <div class="gallery-item">
+      <img src="image2.jpg" alt="Image 2">
+    </div>
+    <div class="gallery-item">
+      <img src="image3.jpg" alt="Image 3">
+    </div>
+    <div class="gallery-item">
+      <img src="image4.jpg" alt="Image 4">
+    </div>
+    <!-- Add more gallery items as needed -->
+  </div>
+</body>
+</html>
+===================================================================================================================================================
+
+Answer - 8
+The below code will clone shown image and add light-dark mode functinality using JS function.
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OneCard Webpage Clone</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Common styles for both modes */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 20px 0;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Light mode styles */
+    body.light-mode {
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* Media query for small screens */
+    @media screen and (max-width: 768px) {
+      body.dark-mode {
+        background-color: #fff;
+        color: #333;
+      }
+
+      body.light-mode {
+        background-color: #333;
+        color: #fff;
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <h1>OneCard Webpage Clone</h1>
+  <div class="information">
+    <h2>Information Section</h2>
+    <p>This is the information section of the webpage.</p>
+    <p>It showcases the different modes based on the screen size:</p>
+    <ul>
+      <li>Dark mode for larger screens</li>
+      <li>Light mode for smaller devices</li>
+    </ul>
+  </div>
+
+  <script>
+    // JavaScript code to toggle dark and light mode based on screen size
+    function toggleMode() {
+      const body = document.querySelector('body');
+      if (window.innerWidth <= 768) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+      }
+    }
+
+    // Run the toggleMode function on page load and resize events
+    window.addEventListener('load', toggleMode);
+    window.addEventListener('resize', toggleMode);
+  </script>
+</body>
+</html>
+==========================================================================================================================================
+
+Answer - 9
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Footer Example</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Common styles for the footer */
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* Media query for small screens */
+    @media screen and (max-width: 768px) {
+      footer {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Page content goes here -->
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 OneCard. All rights reserved.</p>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
+The CSS styles define common styles for the footer, including background color, text color, padding, text alignment, and font size.
+The media query inside the CSS applies different styles for small screens, overriding the default font size to make the text slightly smaller for optimal visibility on smaller devices.
+The footer content is contained within a div element with the class "container" to center the content horizontally.
+
+========================================================================================================================================================
+
+Answer - 10
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Common styles for the table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    /* Media query for small screens */
+    @media screen and (max-width: 768px) {
+      table {
+        overflow-x: auto;
+      }
+
+      th:nth-child(3),
+      td:nth-child(3) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Dashboard</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Doe</td>
+        <td>johndoe@example.com</td>
+        <td>1234567890</td>
+      </tr>
+      <tr>
+        <td>Jane Smith</td>
+        <td>janesmith@example.com</td>
+        <td>9876543210</td>
+      </tr>
+      <!-- Add more student details rows as needed -->
+    </tbody>
+  </table>
+</body>
+</html>
+
+In this example:
+
+The CSS styles define common styles for the table, including width, border-collapse, and padding for the table cells.
+The media query inside the CSS applies different styles for small screens. It adds a horizontal overflow to the table to enable scrolling when necessary.
+It also hides the third column (Phone) using the display: none; property to ensure proper visibility of information on small screens.
+The table includes a <thead> section with table headers (Name, Email, and Phone) and a <tbody> section with the student details rows.
+=====================================================================================================================================================================
+
+
+
