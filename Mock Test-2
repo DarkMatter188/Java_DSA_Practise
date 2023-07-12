@@ -1,0 +1,678 @@
+                                                      Mock Test - 2
+Answer - 1
+Here's an example of how to  achieve this:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color and Size Change</title>
+  <style>
+    .box {
+      width: 300px;
+      height: 300px;
+      background-color: red;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS:
+```css
+.box {
+  transition: background-color 0.3s, width 0.3s, height 0.3s;
+}
+
+.box.yellow {
+  background-color: yellow;
+  width: 600px;
+  height: 600px;
+}
+```
+
+JavaScript (script.js):
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const box = document.querySelector(".box");
+
+  box.addEventListener("click", function() {
+    box.classList.add("yellow");
+  });
+});
+```
+
+In this example, we define a square box with a size of 300x300 pixels using the CSS class "box". 
+Initially, the background color is set to red. The box has a cursor style of "pointer" to indicate that it is clickable.
+
+In the JavaScript code, we wait for the DOM content to load using the "DOMContentLoaded" event listener. 
+We then select the box using `document.querySelector(".box")`. We attach a "click" event listener to the box, and when it is clicked,
+we add the CSS class "yellow" to the box using `box.classList.add("yellow")`.
+
+In the CSS, we define the transition effect for the box, specifying that changes to the background color, width, and height should transition smoothly over a duration of 0.3 seconds.
+We also define the CSS class "yellow" to change the background color to yellow and double the size of the box.
+================================================================================================================================================================================
+
+Answer - 2
+An example of an app that allows users to input text and dynamically display it below the input box upon submission:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Text Input</title>
+  <style>
+    #input-box {
+      margin-bottom: 10px;
+    }
+    #display-area {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="input-box" placeholder="Enter text">
+  <button id="submit-btn">Submit</button>
+  <div id="display-area"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+JavaScript (script.js):
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const inputBox = document.getElementById("input-box");
+  const submitBtn = document.getElementById("submit-btn");
+  const displayArea = document.getElementById("display-area");
+
+  submitBtn.addEventListener("click", function() {
+    const text = inputBox.value;
+    if (text !== "") {
+      const newParagraph = document.createElement("p");
+      newParagraph.textContent = text;
+      displayArea.appendChild(newParagraph);
+      inputBox.value = "";
+    }
+  });
+});
+```
+
+In this example, we have an input box where users can type their text and a submit button to add the text to the webpage.
+The entered text will be displayed as a new paragraph below the input box.
+
+In the JavaScript code, we select the necessary elements using `document.getElementById()` and store them in variables.
+We attach a "click" event listener to the submit button using `submitBtn.addEventListener()`. When the button is clicked, we retrieve the value of the input box using `inputBox.value`.
+If the value is not empty, we create a new paragraph element using `document.createElement("p")`, set its text content to the entered text, 
+append it to the display area using `displayArea.appendChild()`, and finally, clear the input box by setting its value to an empty string.
+
+When you open the HTML file in a web browser, you'll see an input box, a submit button, and a display area.
+Upon entering text in the input box and clicking the submit button, the entered text will be added as a new paragraph below the input box.
+======================================================================================================================================================================
+
+Answer - 3
+An example of fetching data from the JSON Placeholder API and displaying it in the browser, along with implementing a skeleton loader:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Fetching with Skeleton Loader</title>
+  <style>
+    .skeleton-loader {
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      height: 20px;
+      margin-bottom: 10px;
+    }
+    .post {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
+    .post-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .post-body {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div id="posts-container">
+    <!-- Skeleton Loader -->
+    <div class="skeleton-loader"></div>
+    <div class="skeleton-loader"></div>
+    <div class="skeleton-loader"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+JavaScript (script.js):
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const postsContainer = document.getElementById("posts-container");
+
+  // Show skeleton loader
+  function showLoader() {
+    postsContainer.innerHTML = "";
+    for (let i = 0; i < 3; i++) {
+      const loaderDiv = document.createElement("div");
+      loaderDiv.classList.add("skeleton-loader");
+      postsContainer.appendChild(loaderDiv);
+    }
+  }
+
+  // Fetch data from JSON Placeholder API
+  function fetchData() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then(response => response.json())
+      .then(data => {
+        // Remove skeleton loader
+        postsContainer.innerHTML = "";
+
+        // Render fetched data
+        data.forEach(post => {
+          const postDiv = document.createElement("div");
+          postDiv.classList.add("post");
+          const titleElement = document.createElement("h3");
+          titleElement.classList.add("post-title");
+          titleElement.textContent = post.title;
+          const bodyElement = document.createElement("p");
+          bodyElement.classList.add("post-body");
+          bodyElement.textContent = post.body;
+          postDiv.appendChild(titleElement);
+          postDiv.appendChild(bodyElement);
+          postsContainer.appendChild(postDiv);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        postsContainer.innerHTML = "Error occurred while fetching data.";
+      });
+  }
+
+  // Initial load with skeleton loader
+  showLoader();
+
+  // Fetch and display data
+  fetchData();
+});
+```
+
+In this example, we first define the HTML structure with a container element (`<div id="posts-container">`) where the fetched posts will be displayed.
+Initially, we add three elements with the `skeleton-loader` class to represent the skeleton loader effect.
+
+In the JavaScript code, we select the posts container element using `document.getElementById("posts-container")` and define two functions: `showLoader()` and `fetchData()`.
+
+The `showLoader()` function clears the posts container and adds three skeleton loader elements to simulate the loading state.
+This function is called initially to show the skeleton loader effect.
+
+The `fetchData()` function performs the fetch request to the JSON Placeholder API and retrieves the posts data. Upon successful response,
+it removes the skeleton loader elements and dynamically creates HTML elements (`div`, `h3`, and `p`) to represent each post. 
+The post data is added to the respective HTML elements and appended to the posts container.
+
+In case of any error during the fetch request, the `catch()` block logs the error and displays an error message in the posts container.
+
+When you open the HTML file in a web browser, you'll initially see the skeleton loader effect with three loading placeholders.
+Once the fetch request is completed, the skeleton loader is replaced with the actual posts data fetched from the JSON Placeholder API.
+
+Feel free to adjust the styles, enhance the error handling, or customize the functionality further as needed.
+
+=====================================================================================================================================================================
+
+Answer - 4
+An example of a responsive navbar that transforms into a hamburger menu on smaller screens and reveals the menu items upon clicking:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Navbar</title>
+  <style>
+    /* Navbar styles */
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 24px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .navbar ul {
+      display: flex;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar li {
+      margin-left: 15px;
+    }
+
+    .navbar li a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    /* Hamburger menu styles */
+    .menu-icon {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    /* Media query for smaller screens */
+    @media screen and (max-width: 768px) {
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+      }
+
+      .navbar li {
+        margin: 10px 0;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+      .menu-icon.active {
+        transform: rotate(90deg);
+      }
+
+      .navbar.show {
+        height: auto;
+      }
+
+      .navbar.show ul {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="navbar-brand" href="#">Logo</a>
+    <div class="menu-icon">&#9776;</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+JavaScript (script.js):
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const menuIcon = document.querySelector(".menu-icon");
+  const navbar = document.querySelector(".navbar");
+
+  // Toggle the navbar menu on click
+  menuIcon.addEventListener("click", function() {
+    navbar.classList.toggle("show");
+    menuIcon.classList.toggle("active");
+  });
+});
+```
+
+In this example, we have a simple HTML structure for the navbar.
+The navbar consists of a logo (`navbar-brand`), a hamburger menu icon (`menu-icon`), and an unordered list (`ul`) for the menu items. 
+Each menu item is represented by a list item (`li`) with an anchor tag (`a`).
+
+In the CSS, we define the styles for the navbar and the hamburger menu. 
+The media query `@media screen and (max-width: 768px)` applies the styles for smaller screens, where the menu items are hidden by default.
+The hamburger menu icon is displayed, and upon clicking it, the class `show` is toggled on the navbar to reveal the menu items.
+
+In the JavaScript code, we select the menu icon and navbar using `document.querySelector()`.
+We attach a "click" event listener to the menu icon, and upon clicking, the class `show` is toggled on the navbar, and the class `active` is toggled on the menu icon to handle the transformation effect.
+
+When you open the HTML file in a web browser, you'll see the responsive navbar. On larger screens, the menu items are displayed directly on the screen. 
+On smaller screens, the menu items are hidden, and the hamburger menu icon is shown. Clicking the icon reveals the menu items in a nicely animated way.
+
+=====================================================================================================================================================================
+
+Answer - 5
+A form with proper form validation using JavaScript. 
+It includes validation for name, email, phone number, password, age, gender, date, and color picker fields:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation</title>
+  <style>
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <span id="nameError" class="error-message"></span>
+
+    <br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    <span id="emailError" class="error-message"></span>
+
+    <br>
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" required>
+    <span id="phoneError" class="error-message"></span>
+
+    <br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" required>
+    <span id="passwordError" class="error-message"></span>
+
+    <br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" required>
+    <span id="ageError" class="error-message"></span>
+
+    <br>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+      <option value="">Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+    <span id="genderError" class="error-message"></span>
+
+    <br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" required>
+    <span id="dateError" class="error-message"></span>
+
+    <br>
+
+    <label for="color">Color:</label>
+    <input type="color" id="color" required>
+    <span id="colorError" class="error-message"></span>
+
+    <br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+JavaScript (script.js):
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("myForm");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    if (validateForm()) {
+      // If form is valid, submit the data or perform other actions
+      console.log("Form submitted successfully!");
+    }
+  });
+
+  function validateForm() {
+    let isValid = true;
+
+    // Name validation
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("nameError");
+    if (nameInput.value === "") {
+      nameError.textContent = "Name is required";
+      isValid = false;
+    } else {
+      nameError.textContent = "";
+    }
+
+    // Email validation
+    const emailInput = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput.value)) {
+      emailError.textContent = "Invalid email format";
+      isValid = false;
+    } else {
+      emailError.textContent = "";
+    }
+
+    // Phone number validation
+    const phoneInput = document.getElementById("phone");
+    const phoneError = document.getElementById("phoneError");
+    const phonePattern = /^\d{10}$/;
+    if (!phonePattern.test(phoneInput.value)) {
+      phoneError.textContent = "Invalid phone number format";
+      isValid = false;
+    } else {
+      phoneError.textContent = "";
+    }
+
+    // Password validation
+    const passwordInput = document.getElementById("password");
+    const passwordError = document.getElementById("passwordError");
+    if (passwordInput.value.length < 6) {
+      passwordError.textContent = "Password should be at least 6 characters";
+      isValid = false;
+    } else {
+      passwordError.textContent = "";
+    }
+
+    // Age validation
+    const ageInput = document.getElementById("age");
+    const ageError = document.getElementById("ageError");
+    if (ageInput.value < 18 || ageInput.value > 100) {
+      ageError.textContent = "Age should be between 18 and 100";
+      isValid = false;
+    } else {
+      ageError.textContent = "";
+    }
+
+    // Gender validation
+    const genderInput = document.getElementById("gender");
+    const genderError = document.getElementById("genderError");
+    if (genderInput.value === "") {
+      genderError.textContent = "Gender is required";
+      isValid = false;
+    } else {
+      genderError.textContent = "";
+    }
+
+    // Date validation
+    const dateInput = document.getElementById("date");
+    const dateError = document.getElementById("dateError");
+    if (dateInput.value === "") {
+      dateError.textContent = "Date is required";
+      isValid = false;
+    } else {
+      dateError.textContent = "";
+    }
+
+    // Color validation
+    const colorInput = document.getElementById("color");
+    const colorError = document.getElementById("colorError");
+    if (colorInput.value === "#000000") {
+      colorError.textContent = "Please select a color";
+      isValid = false;
+    } else {
+      colorError.textContent = "";
+    }
+
+    return isValid;
+  }
+});
+```
+
+In this example, we have a form with various input fields and corresponding error spans for displaying validation messages. 
+The `validateForm()` function is used to validate the form fields, and the form's `submit` event is intercepted using the `submit` event listener.
+
+In the `validateForm()` function, each input field is validated according to specific criteria. If a validation fails, the corresponding error message
+
+ is displayed, and the `isValid` flag is set to false. If all validations pass, the form is considered valid, and the `isValid` flag remains true.
+
+Upon form submission, the `validateForm()` function is called to validate the form. If the form is valid, the console log message is displayed.
+If the form is invalid, the submission is prevented.
+
+========================================================================================================================================================================
+Answer - 6
+A custom modal window using HTML, CSS, and JavaScript. 
+The modal window will appear when a button is clicked, and the user can close it by clicking outside the modal or using a close button.
+Additionally, when the modal is open, the window will be made non-scrollable.
+
+HTML:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom Modal Window</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .close {
+      float: right;
+      cursor: pointer;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <button id="openBtn">Open Modal</button>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Modal Window</h2>
+      <p>This is a custom modal window. Click outside or the close button to close the modal.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS:
+```css
+body.modal-open {
+  overflow: hidden;
+}
+```
+
+JavaScript (script.js):
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+  const openBtn = document.getElementById("openBtn");
+  const modal = document.getElementById("modal");
+  const closeBtn = modal.querySelector(".close");
+
+  openBtn.addEventListener("click", function() {
+    modal.style.display = "block";
+    document.body.classList.add("modal-open");
+  });
+
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+  });
+
+  modal.addEventListener("click", function(event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+      document.body.classList.remove("modal-open");
+    }
+  });
+});
+```
+
+In this example, we have a button (`openBtn`) that triggers the opening of the modal window.
+The modal window is defined with an overlay (`modal`) and a content container (`modal-content`). 
+Inside the content container, there is a close button (`close`) represented by an "X" symbol.
+
+In the CSS, we define styles for the modal window and the overlay. The overlay creates a semi-transparent background to highlight the modal window.
+
+The JavaScript code attaches event listeners to the button, close button, and modal window.
+When the open button is clicked, the modal window is displayed and the `modal-open` class is added to the body, making the window non-scrollable.
+When the close button is clicked or when a click event occurs on the modal overlay, the modal window is hidden, and the `modal-open` class is removed from the body, allowing scrolling again.
+
+When you open the HTML file in a web browser, you'll see a button labeled "Open Modal."
+Clicking the button will open the modal window, and you can close it by clicking outside the modal or the close button.
+
+Feel free to modify the styles, content, or enhance the functionality further as needed.
+=========================================================================================================================================================================
+
+
