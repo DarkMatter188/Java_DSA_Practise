@@ -1,0 +1,1599 @@
+                                   Assignment - 7
+Answer - 1
+To develop a captivating quiz web application with an engaging user interface, including a dynamic leaderboard feature:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Application</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Quiz Application</h1>
+  </header>
+  <main>
+    <section id="quiz">
+      <h2>Quiz Questions</h2>
+      <div id="question-container"></div>
+      <button id="submit-answer">Submit Answer</button>
+    </section>
+    <section id="popup">
+      <div id="popup-content">
+        <h2 id="popup-message"></h2>
+        <button id="popup-close">Close</button>
+      </div>
+    </section>
+    <section id="leaderboard">
+      <h2>Leaderboard</h2>
+      <table id="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Participant</th>
+            <th>Correct Answers</th>
+            <th>Incorrect Answers</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+/* Add your custom styles here */
+```
+
+JavaScript (script.js):
+```javascript
+// Define quiz questions and answers
+const quizData = [
+  {
+    question: "Question 1",
+    answers: {
+      a: "Option A",
+      b: "Option B",
+      c: "Option C",
+    },
+    correctAnswer: "b",
+  },
+  {
+    question: "Question 2",
+    answers: {
+      a: "Option A",
+      b: "Option B",
+      c: "Option C",
+    },
+    correctAnswer: "c",
+  },
+  // Add more questions here
+];
+
+// Initialize variables
+let currentQuestion = 0;
+let correctAnswers = 0;
+let incorrectAnswers = 0;
+const questionContainer = document.getElementById("question-container");
+const submitButton = document.getElementById("submit-answer");
+const popup = document.getElementById("popup");
+const popupMessage = document.getElementById("popup-message");
+const popupCloseButton = document.getElementById("popup-close");
+const leaderboardTable = document.getElementById("leaderboard-body");
+
+// Load the first question
+loadQuestion();
+
+// Function to load a question
+function loadQuestion() {
+  const currentQuizData = quizData[currentQuestion];
+  questionContainer.innerHTML = `
+    <h3>${currentQuizData.question}</h3>
+    <ul>
+      <li>
+        <input type="radio" name="answer" id="answer-a" value="a">
+        <label for="answer-a">${currentQuizData.answers.a}</label>
+      </li>
+      <li>
+        <input type="radio" name="answer" id="answer-b" value="b">
+        <label for="answer-b">${currentQuizData.answers.b}</label>
+      </li>
+      <li>
+        <input type="radio" name="answer" id="answer-c" value="c">
+        <label for="answer-c">${currentQuizData.answers.c}</label>
+      </li>
+    </ul>
+  `;
+}
+
+// Function to check the answer and show popup
+function checkAnswer() {
+  const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+  if (selectedAnswer) {
+    const userAnswer = selectedAnswer.value;
+    const currentQuizData = quizData[currentQuestion];
+    if (userAnswer === currentQuizData.correctAnswer) {
+      correctAnswers++;
+      showPopup("Correct answer!");
+    } else {
+      incorrectAnswers++;
+      showPopup("Wrong answer!");
+    }
+    currentQuestion++;
+    selectedAnswer.checked = false;
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      showLeaderboard();
+    }
+  }
+}
+
+// Function to show the popup
+function showPopup(message) {
+  popupMessage.textContent = message;
+  popup.style.display = "block";
+}
+
+// Function to close the popup
+function closePopup() {
+  popup.style.display = "none";
+}
+
+// Function to show the leaderboard
+function showLeaderboard() {
+  const participant = "Your Name"; // Replace with participant's name or username
+  const newRow = leaderboardTable.insertRow();
+  newRow.innerHTML = `
+    <td>${participant}</td>
+    <td>${correctAnswers}</td>
+    <td>${incorrectAnswers}</td>
+  `;
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("leaderboard").style.display = "block";
+}
+
+// Event listener for submit button
+submitButton.addEventListener("click", checkAnswer);
+
+// Event listener for popup close button
+popupCloseButton.addEventListener("click", closePopup);
+```
+
+Make sure to link the CSS file (`styles.css`) and the JavaScript file (`script.js`) appropriately in the HTML file.
+We can add your custom styles in the CSS file to enhance the user interface.
+
+This is a basic implementation of the quiz application with the requested features.
+We add more questions to the `quizData` array, or modify the functionality to meet your specific requirements.
+
+=================================================================================================================================================
+Answer - 2
+Here's an example of an elegant and functional digital clock using HTML, CSS, and JavaScript:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="clock">
+    <div class="time">
+      <span id="hours">00</span>
+      <span class="separator">:</span>
+      <span id="minutes">00</span>
+      <span class="separator">:</span>
+      <span id="seconds">00</span>
+    </div>
+    <div class="date">
+      <span id="day">00</span>
+      <span id="month">00</span>
+      <span id="year">0000</span>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 3rem;
+  color: #333;
+}
+
+.separator {
+  margin: 0 0.5rem;
+}
+
+.date {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  color: #777;
+}
+```
+
+JavaScript (script.js):
+```javascript
+function updateTime() {
+  const now = new Date();
+
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = String(now.getFullYear());
+
+  document.getElementById('hours').textContent = hours;
+  document.getElementById('minutes').textContent = minutes;
+  document.getElementById('seconds').textContent = seconds;
+  document.getElementById('day').textContent = day;
+  document.getElementById('month').textContent = month;
+  document.getElementById('year').textContent = year;
+}
+
+// Update the time every second
+setInterval(updateTime, 1000);
+
+// Initial time update
+updateTime();
+```
+
+In this implementation, we create a digital clock that displays the current time with precision.
+The clock consists of two sections: the time section and the date section.
+
+The time section displays the hours, minutes, and seconds separated by colons. The date section displays the day, month, and year.
+
+The CSS styles are kept simple and minimal to create an elegant appearance for the clock.
+
+The JavaScript code defines the `updateTime` function, which updates the time and date elements with the current values.
+It uses the `Date` object to get the current time and date. The time and date values are formatted and then set as the content of the respective HTML elements.
+
+The `setInterval` function is used to call the `updateTime` function every second, ensuring that the clock updates continuously.
+
+When the page loads, the initial time is updated immediately by calling the `updateTime` function.
+
+Feel free to customize the CSS styles to match your desired appearance and layout.
+
+We can save the HTML, CSS, and JavaScript code in separate files (`index.html`, `styles.css`, and `script.js`) and place them in the same directory.
+Then, open the HTML file in a web browser to see the digital clock in action.
+=================================================================================================================================================================
+
+Answer - 3
+A GitHub User Finder web application using HTML, CSS, and JavaScript:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub User Finder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>GitHub User Finder</h1>
+  </header>
+  <main>
+    <div class="search-container">
+      <input type="text" id="username-input" placeholder="Enter a GitHub username">
+      <button id="search-button">Search</button>
+    </div>
+    <div id="user-info" class="user-info-container">
+      <img id="avatar" class="avatar" src="" alt="User Avatar">
+      <div id="user-details" class="user-details">
+        <h2 id="username" class="username"></h2>
+        <p id="name" class="name"></p>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
+}
+
+h1 {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+#username-input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+#search-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.user-info-container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.name {
+  margin-top: 0;
+  font-size: 1rem;
+  color: #777;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const usernameInput = document.getElementById('username-input');
+const searchButton = document.getElementById('search-button');
+const avatar = document.getElementById('avatar');
+const username = document.getElementById('username');
+const name = document.getElementById('name');
+
+searchButton.addEventListener('click', () => {
+  const username = usernameInput.value;
+  if (username.trim() !== '') {
+    fetch(`https://api.github.com/users/${username}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'Not Found') {
+          showError('User not found');
+        } else {
+          showUserInfo(data);
+        }
+      })
+      .catch(error => {
+        showError('An error occurred');
+        console.error(error);
+      });
+  }
+});
+
+function showUserInfo(data) {
+  avatar.src = data.avatar_url;
+  username.textContent = data.login;
+  name.textContent = data.name || '';
+}
+
+function showError(message) {
+  avatar.src = '';
+  username.textContent = message;
+  name.textContent = '';
+}
+```
+
+In this implementation, we create a GitHub User Finder web application that allows users to enter a GitHub username and displays relevant information about the user, including their avatar and name.
+
+The HTML structure consists of a header with the application title, a main section with the search container and user information container, 
+and a script tag to include the JavaScript code.
+
+The CSS styles are defined to create a simple and responsive layout with a centered design.
+
+The JavaScript code listens for a click event on the search button. When the button is clicked, it retrieves the entered GitHub username from the input field.
+It then makes a fetch request to the GitHub API using the provided username. If the user is found, the relevant information (avatar, username, and name) is displayed in the user information container. 
+If the user is not found or an error occurs, an error message is displayed.
+
+To use the GitHub API, make sure you have a good understanding of their usage guidelines and consider adding appropriate error handling 
+and rate limiting mechanisms.
+
+Save the HTML code in an HTML file (e.g., `index.html`), the CSS code in a CSS file (e.g., `styles.css`), and the JavaScript code in a JavaScript file (e.g., `script.js`). 
+Place all the files in the same directory and open the HTML file in a web browser to see the GitHub User Finder web application.
+
+=============================================================================================================================================================================================================
+
+Answer - 4
+A simple website that fetches and displays products from the "https://fakestoreapi.com/products" API using HTML, CSS, and JavaScript:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Display</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Product Display</h1>
+  </header>
+  <main>
+    <div id="product-container" class="product-container"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
+}
+
+h1 {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-title {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.product-price {
+  margin-top: 0.5rem;
+  color: #777;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const productContainer = document.getElementById('product-container');
+
+// Fetch products from API
+fetch('https://fakestoreapi.com/products')
+  .then(response => response.json())
+  .then(products => displayProducts(products))
+  .catch(error => console.error(error));
+
+// Display products in the UI
+function displayProducts(products) {
+  productContainer.innerHTML = '';
+
+  products.forEach(product => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+
+    const productImage = document.createElement('img');
+    productImage.classList.add('product-image');
+    productImage.src = product.image;
+    productImage.alt = product.title;
+
+    const productTitle = document.createElement('h2');
+    productTitle.classList.add('product-title');
+    productTitle.textContent = product.title;
+
+    const productPrice = document.createElement('p');
+    productPrice.classList.add('product-price');
+    productPrice.textContent = `$${product.price}`;
+
+    productCard.appendChild(productImage);
+    productCard.appendChild(productTitle);
+    productCard.appendChild(productPrice);
+
+    productContainer.appendChild(productCard);
+  });
+}
+```
+
+In this implementation, we create a simple website that fetches and displays products from the "https://fakestoreapi.com/products" API.
+
+The HTML structure consists of a header with the application title, a main section with a product container, and a script tag to include the JavaScript code.
+
+The CSS styles are defined to create a responsive and visually appealing layout. The product cards are displayed in a grid layout with four products per row.
+
+The JavaScript code fetches the products from the API using the `fetch` function.
+Once the products are fetched, the `displayProducts` function is called to render the products in the UI. For each product, a product card is created
+dynamically using the `createElement` method. The product image, title, and price are added to the card, and then the card is appended to the product container.
+
+==========================================================================================================================================================================
+
+Answer - 5
+An extended version of the previous website that includes the 'Add to Cart' functionality and displays the cart UI:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Display</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Product Display</h1>
+  </header>
+  <main>
+    <div id="product-container" class="product-container"></div>
+  </main>
+  <div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+      <h2>Cart</h2>
+      <div id="cart-items" class="cart-items"></div>
+      <button id="close-cart" class="close-cart">Close</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+/* Previous CSS styles */
+
+.cart-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.cart-content {
+  position: relative;
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 2rem;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 4px;
+}
+
+.close-cart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const productContainer = document.getElementById('product-container');
+const cartModal = document.getElementById('cart-modal');
+const cartItems = document.getElementById('cart-items');
+const closeCartButton = document.getElementById('close-cart');
+
+let cart = [];
+
+// Fetch products from API
+fetch('https://fakestoreapi.com/products')
+  .then(response => response.json())
+  .then(products => displayProducts(products))
+  .catch(error => console.error(error));
+
+// Display products in the UI
+function displayProducts(products) {
+  productContainer.innerHTML = '';
+
+  products.forEach(product => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+
+    const productImage = document.createElement('img');
+    productImage.classList.add('product-image');
+    productImage.src = product.image;
+    productImage.alt = product.title;
+
+    const productTitle = document.createElement('h2');
+    productTitle.classList.add('product-title');
+    productTitle.textContent = product.title;
+
+    const productPrice = document.createElement('p');
+    productPrice.classList.add('product-price');
+    productPrice.textContent = `$${product.price}`;
+
+    const addToCartButton = document.createElement('button');
+    addToCartButton.classList.add('add-to-cart-button');
+    addToCartButton.textContent = 'Add to Cart';
+    addToCartButton.addEventListener('click', () => {
+      addToCart(product);
+    });
+
+    productCard.appendChild(productImage);
+    productCard.appendChild(productTitle);
+    productCard.appendChild(productPrice);
+    productCard.appendChild(addToCartButton);
+
+    productContainer.appendChild(productCard);
+  });
+}
+
+// Add product to cart
+function addToCart(product) {
+  const existingCartItem = cart.find(item => item.id === product.id);
+
+  if (existingCartItem) {
+    existingCartItem.quantity++;
+  } else {
+    const cartItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      quantity: 1,
+    };
+    cart.push(cartItem);
+  }
+
+  showCart();
+}
+
+// Show cart
+function showCart() {
+  cartItems.innerHTML = '';
+
+  cart.forEach(item => {
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+
+    const cartItemTitle = document.createElement('h3');
+    cartItemTitle.textContent = item.title;
+
+    const cartItemPrice = document.createElement('p');
+    cartItemPrice.textContent = `Price: $${item.price}`;
+
+    const cartItemQuantity = document.createElement('p');
+    cartItemQuantity.textContent = `Quantity: ${item.quantity}`;
+
+    cartItem.appendChild(cartItemTitle);
+    cartItem.appendChild(cartItemPrice);
+    cartItem.appendChild(cartItemQuantity);
+
+    cartItems.appendChild(cartItem);
+  });
+
+  cartModal.style.display = 'block';
+}
+
+// Close cart
+function closeCart() {
+  cartModal.style.display = 'none';
+}
+
+// Event listener for close cart button
+closeCartButton.addEventListener('click', closeCart);
+```
+
+In this extended version, we added the 'Add to Cart' functionality and the cart UI.
+
+The HTML structure remains mostly the same, with the addition of the cart modal section and its content.
+
+The CSS styles include new styles for the cart modal, including the overlay and the cart content.
+
+The JavaScript code now includes the 'Add to Cart' functionality. When the user clicks the 'Add to Cart' button on a product card, 
+the selected product is added to the cart. The cart is an array that holds the cart items, 
+and each cart item contains the product ID, title, price, and quantity. If the selected product already exists in the cart, 
+its quantity is incremented; otherwise, a new cart item is added.
+
+A new function, `showCart`, is added to display the cart UI. 
+It dynamically creates the cart items based on the cart array and appends them to the cart items container.
+When the user clicks the 'Add to Cart' button, the `showCart` function is called to update and display the cart UI.
+
+The close cart functionality is implemented by adding an event listener to the close cart button.
+
+================================================================================================================================================================
+
+Answer - 6
+An extension to the previous problem to create a single product page that displays data specific to the clicked product and uses LocalStorage to store the data:
+
+HTML (index.html):
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Display</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Product Display</h1>
+  </header>
+  <main>
+    <div id="product-container" class="product-container"></div>
+  </main>
+  <div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+      <h2>Cart</h2>
+      <div id="cart-items" class="cart-items"></div>
+      <button id="close-cart" class="close-cart">Close</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+HTML (product.html):
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Product Details</h1>
+  </header>
+  <main>
+    <div id="product-details" class="product-details"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+/* Previous CSS styles */
+
+.product-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.product-details h2 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-details img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-details p {
+  margin: 0.5rem 0;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const productContainer = document.getElementById('product-container');
+const cartModal = document.getElementById('cart-modal');
+const cartItems = document.getElementById('cart-items');
+const closeCartButton = document.getElementById('close-cart');
+
+let cart = [];
+
+// Fetch products from API
+fetch('https://fakestoreapi.com/products')
+  .then(response => response.json())
+  .then(products => displayProducts(products))
+  .catch(error => console.error(error));
+
+// Display products in the UI
+function displayProducts(products) {
+  productContainer.innerHTML = '';
+
+  products.forEach(product => {
+    const productCard = document.createElement('div');
+    productCard.classList.add('product-card');
+
+    const productImage = document.createElement('img');
+    productImage.classList.add('product-image');
+    productImage.src = product.image;
+    productImage.alt = product.title;
+
+    const productTitle = document.createElement('h2');
+    productTitle.classList.add('product-title');
+    productTitle.textContent = product.title;
+
+    const productPrice = document.createElement('p');
+    productPrice.classList.add('product-price');
+    productPrice.textContent = `$${product.price}`;
+
+    const addToCartButton = document.createElement('button');
+    addToCartButton.classList.add('add-to-cart-button');
+    addToCartButton.textContent = 'Add to Cart';
+    addToCartButton.addEventListener('click', () => {
+      addToCart(product);
+    });
+
+    productCard.appendChild(productImage);
+    productCard.appendChild(productTitle);
+    productCard.appendChild(productPrice);
+    productCard.appendChild(addToCartButton);
+
+    productContainer.appendChild(productCard);
+  });
+
+  const productCards = document.querySelectorAll('.product-card');
+  productCards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      saveProductData(products[index]);
+      window.location.href = 'product.html';
+    });
+  });
+}
+
+// Save product data to localStorage
+function saveProductData(product) {
+  localStorage.setItem('productData', JSON.stringify(product));
+}
+
+// Retrieve product data from localStorage
+function getProductData() {
+  return JSON.parse(localStorage.getItem('productData'));
+}
+
+// Display product details on the product page
+function displayProductDetails() {
+  const productDetailsContainer = document.getElementById('product-details');
+  const productData = getProductData();
+
+  if (productData) {
+    const productImage = document.createElement('img');
+    productImage.src = productData.image;
+    productImage.alt = productData.title;
+
+    const productTitle = document.createElement('h2');
+    productTitle.textContent = productData.title;
+
+    const productPrice = document.createElement('p');
+    productPrice.textContent = `Price: $${productData.price}`;
+
+    productDetailsContainer.appendChild(productImage);
+    productDetailsContainer.appendChild(productTitle);
+    productDetailsContainer.appendChild(productPrice);
+  }
+}
+
+// Add product to cart
+function addToCart(product) {
+  const existingCartItem = cart.find(item => item.id === product.id);
+
+  if (existingCartItem) {
+    existingCartItem.quantity++;
+  } else {
+    const cartItem = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      quantity: 1,
+    };
+    cart.push(cartItem);
+  }
+
+  showCart();
+}
+
+// Show cart
+function showCart() {
+  cartItems.innerHTML = '';
+
+  cart.forEach(item => {
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+
+    const cartItemTitle = document.createElement('h3');
+    cartItemTitle.textContent = item.title;
+
+    const cartItemPrice = document.createElement('p');
+    cartItemPrice.textContent = `Price: $${item.price}`;
+
+    const cartItemQuantity = document.createElement('p');
+    cartItemQuantity.textContent = `Quantity: ${item.quantity}`;
+
+    cartItem.appendChild(cart
+
+ItemTitle);
+    cartItem.appendChild(cartItemPrice);
+    cartItem.appendChild(cartItemQuantity);
+
+    cartItems.appendChild(cartItem);
+  });
+
+  cartModal.style.display = 'block';
+}
+
+// Close cart
+function closeCart() {
+  cartModal.style.display = 'none';
+}
+
+// Event listener for close cart button
+closeCartButton.addEventListener('click', closeCart);
+
+// Check if the current page is the product page
+if (window.location.href.includes('product.html')) {
+  displayProductDetails();
+}
+```
+
+In this extension, we added a new HTML file named `product.html`, which represents the single product page.
+The CSS styles are updated to style the product details on the single product page.
+
+In the JavaScript code, we made the following changes:
+- Added the `saveProductData` function to store the clicked product's data in localStorage.
+- Added the `getProductData` function to retrieve the stored product data from localStorage.
+- Added the `displayProductDetails` function to display the product details on the product page by retrieving the stored product data and dynamically creating the HTML elements.
+- Updated the `displayProducts` function to add event listeners to each product card and redirect the user to the product page when clicked. 
+Before redirecting, the clicked product's data is stored in localStorage using the `saveProductData` function.
+- Added a condition to check if the current page is the product page (`product.html`). If it is, the `displayProductDetails` function is called to display the product details on the page.
+
+Make sure to save the updated HTML, CSS, and JavaScript code in separate files (`index.html`, `product.html`, `styles.css`, and `script.js`).
+Place all the files in the same directory and open the `index.html` file in a web browser.
+When you click on a product, you will be redirected to the single product page (`product.html`), 
+which will display the product details specific to the clicked product.
+
+===============================================================================================================================================================
+
+Answer - 7
+An example of a live preview project using HTML, CSS, and JavaScript:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Preview</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <section class="form-section">
+      <h2>Form Section</h2>
+      <form id="preview-form">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" placeholder="Enter your message"></textarea>
+        </div>
+      </form>
+    </section>
+    <section class="preview-section">
+      <h2>Live Preview</h2>
+      <div id="live-preview" class="live-preview">
+        <p id="preview-name" class="preview-name">Name: <span></span></p>
+        <p id="preview-email" class="preview-email">Email: <span></span></p>
+        <p id="preview-message" class="preview-message">Message: <span></span></p>
+      </div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+}
+
+.form-section,
+.preview-section {
+  flex: 1;
+  margin: 1rem;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.live-preview {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.preview-name,
+.preview-email,
+.preview-message {
+  margin: 0.5rem 0;
+}
+
+.preview-name span,
+.preview-email span,
+.preview-message span {
+  font-weight: bold;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const messageInput = document.getElementById('message');
+
+const previewName = document.getElementById('preview-name').querySelector('span');
+const previewEmail = document.getElementById('preview-email').querySelector('span');
+const previewMessage = document.getElementById('preview-message').querySelector('span');
+
+// Update live preview
+function updateLivePreview() {
+  const name = nameInput.value;
+  const email = emailInput.value;
+  const message = messageInput.value;
+
+  previewName.textContent = name;
+  previewEmail.textContent = email;
+  previewMessage.textContent = message;
+}
+
+// Event listeners for form inputs
+nameInput.addEventListener('input', updateLivePreview);
+emailInput.addEventListener('input', updateLivePreview);
+messageInput.addEventListener('input', updateLivePreview);
+```
+
+In this example, we have a form section and a live preview section. 
+The user can input their name, email, and message in the form section, and the live preview section will dynamically display the filled information in real time.
+
+The HTML structure consists of two sections: the form section and the live preview section. 
+The form section contains input fields for name, email, and message. The live preview section has a div with an id of "live-preview" and paragraphs to display the previewed name, email, and message.
+
+The CSS styles define the layout and styling of the sections and form elements.
+
+The JavaScript code adds event listeners to the form inputs (`nameInput`, `emailInput`, and `messageInput`). 
+When the user types in any of the input fields, the `updateLivePreview` function is called, which retrieves the input values and updates the text content of the preview paragraphs accordingly.
+
+Save the HTML, CSS, and JavaScript code in separate files (`index.html`, `styles.css`, and `script.js`). 
+Place all the files in the same directory and open the `index.html` file in a web browser.
+We will see the form section and the live preview section side by side. As you type in the form inputs, the live preview will update in real time.
+
+================================================================================================================================================================================================
+
+Answer - 8
+Sure! Here's an example of a simple Todo web app with the requested features:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Todo App</h1>
+    <div class="form-container">
+      <input type="text" id="task-input" placeholder="Enter a task">
+      <button id="submit-button">Submit</button>
+    </div>
+    <ul id="task-list"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+li:hover {
+  background-color: #eee;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const taskInput = document.getElementById('task-input');
+const submitButton = document.getElementById('submit-button');
+const taskList = document.getElementById('task-list');
+
+// Add task to the list
+function addTask() {
+  const taskText = taskInput.value;
+
+  if (taskText.trim() !== '') {
+    const taskItem = document.createElement('li');
+    taskItem.textContent = taskText;
+    taskList.appendChild(taskItem);
+    taskInput.value = '';
+  }
+}
+
+// Event listener for submit button
+submitButton.addEventListener('click', addTask);
+```
+
+In this example, we have an HTML structure that consists of a container div, a heading, a form container with an input field and a submit button, and an unordered list (ul) for displaying the tasks.
+
+The CSS styles define the layout and styling of the elements, including the form layout, task list appearance, and hover effect.
+
+The JavaScript code adds an event listener to the submit button (`submitButton`). 
+When the button is clicked, the `addTask` function is called, which retrieves the task text from the input field (`taskInput`).
+If the task text is not empty, it creates a new list item (`taskItem`) and appends it to the task list (`taskList`). Finally, it clears the input field.
+
+Save the HTML, CSS, and JavaScript code in separate files (`index.html`, `styles.css`, and `script.js`).
+Place all the files in the same directory and open the `index.html` file in a web browser.
+We will see the Todo app with the input field and submit button. When you enter a task and click the submit button, the task will be added to the list.
+===================================================================================================================================================================================================================
+
+Answer - 9
+An expanded version of the Todo web app with the additional functionalities:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Todo App</h1>
+    <div class="form-container">
+      <input type="text" id="task-input" placeholder="Enter a task">
+      <button id="submit-button">Submit</button>
+    </div>
+    <ul id="task-list"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+/* Previous CSS styles */
+
+.task-done {
+  background-color: #c2f0c2;
+}
+
+.task-pending {
+  background-color: #f5f5f5;
+}
+
+.task-actions {
+  display: flex;
+}
+
+.task-actions button {
+  margin-left: 0.5rem;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const taskInput = document.getElementById('task-input');
+const submitButton = document.getElementById('submit-button');
+const taskList = document.getElementById('task-list');
+
+// Add task to the list
+function addTask() {
+  const taskText = taskInput.value;
+
+  if (taskText.trim() !== '') {
+    const taskItem = document.createElement('li');
+    taskItem.textContent = taskText;
+    taskItem.classList.add('task-pending');
+
+    const taskActions = document.createElement('div');
+    taskActions.classList.add('task-actions');
+
+    const updateStatusButton = document.createElement('button');
+    updateStatusButton.textContent = 'Update Status';
+    updateStatusButton.addEventListener('click', updateTaskStatus);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete Todo';
+    deleteButton.addEventListener('click', deleteTask);
+
+    taskActions.appendChild(updateStatusButton);
+    taskActions.appendChild(deleteButton);
+
+    taskItem.appendChild(taskActions);
+    taskList.appendChild(taskItem);
+    taskInput.value = '';
+  }
+}
+
+// Update task status
+function updateTaskStatus(event) {
+  const taskItem = event.target.parentElement.parentElement;
+  taskItem.classList.toggle('task-done');
+  taskItem.classList.toggle('task-pending');
+}
+
+// Delete task
+function deleteTask(event) {
+  const taskItem = event.target.parentElement.parentElement;
+  taskItem.remove();
+}
+
+// Event listener for submit button
+submitButton.addEventListener('click', addTask);
+```
+
+In this expanded version, we made the following changes:
+- Added a new CSS style for the completed task (`task-done`) and the pending task (`task-pending`).
+- Modified the `addTask` function to create a task item with an additional div for task actions.
+Inside the task actions div, we added an "Update Status" button and a "Delete Todo" button, along with event listeners for each button.
+- Added the `updateTaskStatus` function to toggle the task status between completed and pending. 
+It updates the class of the task item accordingly.
+- Added the `deleteTask` function to remove the selected task from the UI by removing the corresponding task item.
+
+Now, when a task is added, it will have two additional buttons for updating the status and deleting the task.
+Clicking the "Update Status" button will toggle the task status and change the background color. Clicking the "Delete Todo" button will remove the task from the UI.
+
+Save the updated HTML, CSS, and JavaScript code in separate files (`index.html`, `styles.css`, and `script.js`). 
+Place all the files in the same directory and open the `index.html` file in a web browser. You will see the expanded Todo app with the new functionalities.
+
+===============================================================================================================================================================================
+
+Answer - 10
+Here's the extension of the Todo web app with the edit functionality:
+
+HTML:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Todo App</h1>
+    <div class="form-container">
+      <input type="text" id="task-input" placeholder="Enter a task">
+      <button id="submit-button">Submit</button>
+    </div>
+    <ul id="task-list"></ul>
+  </div>
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <h2>Edit Todo</h2>
+      <input type="text" id="edit-task-input" placeholder="Enter updated task">
+      <button id="update-button">Update</button>
+      <button id="cancel-button">Cancel</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+CSS (styles.css):
+```css
+/* Previous CSS styles */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: 400px;
+  text-align: center;
+}
+
+#edit-task-input {
+  margin-bottom: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+#update-button,
+#cancel-button {
+  margin-right: 0.5rem;
+}
+```
+
+JavaScript (script.js):
+```javascript
+const taskInput = document.getElementById('task-input');
+const submitButton = document.getElementById('submit-button');
+const taskList = document.getElementById('task-list');
+
+const editModal = document.getElementById('edit-modal');
+const editTaskInput = document.getElementById('edit-task-input');
+const updateButton = document.getElementById('update-button');
+const cancelButton = document.getElementById('cancel-button');
+
+let selectedTask = null;
+
+// Add task to the list
+function addTask() {
+  const taskText = taskInput.value;
+
+  if (taskText.trim() !== '') {
+    const taskItem = document.createElement('li');
+    taskItem.textContent = taskText;
+    taskItem.classList.add('task-pending');
+
+    const taskActions = document.createElement('div');
+    taskActions.classList.add('task-actions');
+
+    const updateStatusButton = document.createElement('button');
+    updateStatusButton.textContent = 'Update Status';
+    updateStatusButton.addEventListener('click', updateTaskStatus);
+
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.addEventListener('click', openEditModal);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete Todo';
+    deleteButton.addEventListener('click', deleteTask);
+
+    taskActions.appendChild(updateStatusButton);
+    taskActions.appendChild(editButton);
+    taskActions.appendChild(deleteButton);
+
+    taskItem.appendChild(taskActions);
+    taskList.appendChild(taskItem);
+    taskInput.value = '';
+  }
+}
+
+// Update task status
+function updateTaskStatus(event) {
+  const taskItem = event.target.parentElement.parentElement;
+  taskItem.classList.toggle('task-done');
+  taskItem.classList.toggle('task-pending');
+}
+
+// Delete task
+function deleteTask(event) {
+  const taskItem = event.target.parentElement.parentElement;
+  taskItem.remove();
+}
+
+// Open edit modal
+function openEditModal(event) {
+  const taskItem = event.target.parentElement.parentElement;
+  selectedTask = taskItem;
+  const taskText = taskItem.textContent.trim();
+  editTaskInput.value = taskText;
+  editModal.style.display = 'block';
+}
+
+// Update task
+function updateTask() {
+  const updatedTaskText = editTaskInput.value;
+  if (updatedTaskText.trim() !== '') {
+    selectedTask.textContent = updatedTaskText;
+    editModal.style.display = 'none';
+  }
+}
+
+// Cancel update
+function cancelUpdate() {
+  editModal.style.display = 'none';
+}
+
+// Event listeners
+submitButton.addEventListener('click', addTask);
+updateButton.addEventListener('click', updateTask);
+cancelButton.addEventListener('click', cancelUpdate);
+```
+
+In this extended version, we added an edit functionality to the Todo web app. The changes include:
+- Added a modal section in the HTML structure (`edit-modal`) with an input field for editing the task and buttons for updating and canceling the edit.
+- Created CSS styles for the modal and its content.
+- Added event listeners to the "Edit" button (`editButton`) in each task item to open the edit modal and display the selected task's text in the input field.
+- Implemented the `openEditModal` function to handle opening the edit modal and storing the selected task item.
+- Implemented the `updateTask` function to update the task with the user's changes and hide the edit modal.
+- Implemented the `cancelUpdate` function to cancel the update and hide the edit modal.
+
+Save the updated HTML, CSS, and JavaScript code in separate files (`index.html`, `styles.css`, and `script.js`).
+Place all the files in the same directory and open the `index.html` file in a web browser. You will see the expanded Todo app with the edit functionality. 
+Clicking the "Edit" button for a specific task will open the edit modal, where you can update the task.
+Clicking the "Update" button will reflect the changes in the UI, and clicking the "Cancel" button will close the edit modal without making any changes.
+===========================================================================================================================================================================
