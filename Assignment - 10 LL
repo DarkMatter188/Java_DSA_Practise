@@ -1,0 +1,47 @@
+                                            Assignment - 10 LinkedList
+Answer - 1
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
+======================================================================================================================================================================
+
+Answer - 2
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        //Handling base case
+        if(head != null && head.val == val){
+            head = head.next;
+        }
+        if(head == null){
+            return null;
+        }
+        ListNode temp = head;
+        while(temp != null && temp.next != null){
+            if(temp.next.val == val){
+                temp.next = temp.next.next;
+
+            }else{
+                temp = temp.next;
+            }
+        }
+        if(head!=null && head.val == val){
+            return head.next;
+        }
+        return head;
+    }
+}
+=========================================================================================================================================================
+
+Answer - 3
+
