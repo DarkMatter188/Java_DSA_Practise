@@ -162,6 +162,138 @@ class Solution {
 
 Answer - 6
 
+public class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+public class Solution {
+    public ListNode leftShiftLinkedList(ListNode head, int k) {
+        if (head == null || k <= 0) {
+            return head;
+        }
+
+        int length = 0;
+        ListNode current = head;
+
+        // Find the length of the linked list
+        while (current != null) {
+            length++;
+            current = current.next;
+        }
+
+        // Calculate the actual shift count
+        int actualShift = k % length;
+
+        // If actual shift is 0, the list remains unchanged
+        if (actualShift == 0) {
+            return head;
+        }
+
+        // Find the (N - actualShift)th node from the beginning
+        current = head;
+        for (int i = 0; i < length - actualShift - 1; i++) {
+            current = current.next;
+        }
+
+        // Adjust the pointers for left shift
+        ListNode newHead = current.next;
+        current.next = null;
+
+        // Find the last node of the new list
+        ListNode lastNode = newHead;
+        while (lastNode.next != null) {
+            lastNode = lastNode.next;
+        }
+
+        // Connect the last node to the original head and return the new head
+        lastNode.next = head;
+        return newHead;
+    }
+}
+===============================================================================================================================================================
+
+Answer - 7
+public class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+public class Solution {
+    public ListNode removeZeroSumSublists(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode current = dummy;
+        int prefixSum = 0;
+        Map<Integer, ListNode> sumMap = new HashMap<>();
+
+        while (current != null) {
+            prefixSum += current.val;
+
+            if (sumMap.containsKey(prefixSum)) {
+                ListNode prev = sumMap.get(prefixSum).next;
+                int sumToRemove = prefixSum;
+
+                while (prev != current) {
+                    sumToRemove += prev.val;
+                    sumMap.remove(sumToRemove);
+                    prev = prev.next;
+                }
+
+                sumMap.get(prefixSum).next = current.next;
+            } else {
+                sumMap.put(prefixSum, current);
+            }
+
+            current = current.next;
+        }
+
+        return dummy.next;
+    }
+}
+===============================================================================================================================================================
+Answer - 8
+public class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+public class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode oddHead = head;
+        ListNode evenHead = head.next;
+        ListNode oddTail = oddHead;
+        ListNode evenTail = evenHead;
+
+        while (evenTail != null && evenTail.next != null) {
+            oddTail.next = evenTail.next;
+            oddTail = oddTail.next;
+            evenTail.next = oddTail.next;
+            evenTail = evenTail.next;
+        }
+
+        oddTail.next = evenHead;
+        return oddHead;
+    }
+}
+
 
 
 
