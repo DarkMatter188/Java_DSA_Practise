@@ -1,0 +1,449 @@
+                                                           IBI Placement Test
+Answer - 1
+Cookies, local storage, and session storage are all mechanisms used for client-side storage in web applications, but they have some key differences in terms of functionality, usage, and lifespan:
+
+1. Cookies:
+   - Cookies are small pieces of data that are stored on the client's computer.
+   - They are sent back to the server with every HTTP request, including images, scripts, and other resources. 
+This can increase the request size and may impact performance.
+   - Cookies have an expiration date, and they can be set to persist for a specific period or be session cookies, which expire when the browser is closed.
+   - They have a limitation on the amount of data they can store, typically up to 4KB.
+   - Cookies are commonly used for user authentication, session management, and storing user preferences.
+
+2. Local Storage:
+   - Local storage is a client-side storage mechanism that allows applications to store key-value pairs locally in the browser.
+   - Data stored in local storage remains even after the browser is closed and is accessible across different browser sessions and tabs.
+   - It has a larger storage capacity compared to cookies, typically up to 5-10MB, depending on the browser.
+   - Local storage is synchronous and can be accessed using JavaScript's `localStorage` API.
+   - It is commonly used for caching data, storing user settings, and managing offline data in web applications.
+
+3. Session Storage:
+   - Session storage is similar to local storage but has a shorter lifespan.
+   - Data stored in session storage is available only for the duration of the browser session. 
+When the user closes the browser or tab, the session storage data is cleared.
+   - Like local storage, it has a larger storage capacity compared to cookies and is accessible across multiple tabs within the same browser session.
+   - Session storage is also synchronous and can be accessed using JavaScript's `sessionStorage` API.
+   - It is commonly used for storing temporary data that is only needed for the current session.
+
+In summary, cookies are primarily used for sending data to the server with each request and have limited storage capacity.
+Local storage provides a larger storage capacity and persists data across browser sessions, 
+while session storage is similar to local storage but has a shorter lifespan and is cleared when the browser session ends. 
+The choice between them depends on the specific requirements of the web application.
+==================================================================================================================================================================
+
+Answer - 2
+The output of the given code will be:
+
+```
+5
+5
+5
+5
+5
+```
+
+Explanation:
+In the code, a `for` loop is used to iterate from `i = 0` to `i = 4` (since the loop runs while `i < 5`).
+Within the loop, a `setTimeout` function is called with a delay of 100 milliseconds. 
+The `setTimeout` function schedules the execution of the provided function (an arrow function `() => console.log(i)`) after the specified delay.
+
+However, there is a common misunderstanding when using `setTimeout` in a loop like this. 
+The `for` loop iterates quickly, and each call to `setTimeout` is scheduled asynchronously with a delay of 100 milliseconds.
+This means that by the time the scheduled functions are executed, the loop has already finished, and the value of `i` is equal to 5.
+
+When the scheduled functions are executed, they all access the same variable `i`, which is now 5, and that's why the output is `5` printed five times.
+
+================================================================================================================================================================
+
+Answer - 3
+Sharding in MongoDB is a method of distributing data across multiple servers (shards) to improve scalability and performance.
+It allows MongoDB to handle large amounts of data and heavy read/write workloads by distributing the data across multiple machines.
+
+The process of sharding involves the following components and steps:
+
+1. Shard Cluster: A shard cluster consists of multiple servers (shards), each responsible for storing a portion of the data.
+The data is divided among the shards based on a shard key, which is a unique identifier for each document in the collection.
+
+2. Shard Key: The shard key is a field or a combination of fields chosen by the application developers to divide the data across the shards. 
+The shard key should be carefully chosen to ensure even distribution of data and optimal performance.
+
+3. Config Servers: The config servers store the metadata about the shard cluster, including the mapping between shard keys and the corresponding shards.
+There are typically three config servers to provide redundancy and fault tolerance.
+
+4. Router (mongos): The router is a query router that acts as an intermediary between the application and the shards. 
+When a client application sends a query to the router, the router determines which shard(s) to query based on the shard key and forwards the query to the appropriate shard(s).
+
+5. Chunking: MongoDB divides the data into chunks based on the shard key. Each chunk represents a contiguous range of values for the shard key.
+These chunks are then distributed across the shards. MongoDB automatically balances the chunks across the shards to maintain an even distribution of data.
+
+6. Migrations: When the data distribution changes due to scaling or balancing operations, MongoDB performs migrations to move chunks between shards. 
+These migrations ensure that the data remains evenly distributed across the shards.
+
+The process of sharding allows MongoDB to horizontally scale the database by adding more shards as the data and workload increase. 
+Each shard can run on a separate server, which distributes the processing load and storage requirements. 
+This enables MongoDB to handle large-scale applications and support high read and write throughput.
+
+Sharding in MongoDB provides several benefits, including:
+
+- Scalability: Allows for horizontal scaling by distributing data across multiple servers.
+- High Availability: Provides fault tolerance and redundancy by replicating data across shards.
+- Performance: Improves read and write performance by distributing the workload.
+- Flexibility: Allows adding or removing shards dynamically to adapt to changing requirements.
+
+However, sharding also introduces some complexity to the database architecture and may require careful consideration of the shard key 
+and data distribution to achieve optimal performance and efficiency.
+
+===================================================================================================================================================================
+
+Answer - 4
+Promise chaining is a technique in JavaScript for handling asynchronous operations using Promises. 
+It allows you to perform multiple asynchronous operations one after the other in a sequential manner,
+ensuring that each operation depends on the result of the previous one. This helps avoid the "callback hell" and makes the code more readable and maintainable.
+
+In a promise chain, each asynchronous operation returns a Promise, and you can chain additional operations using the `.then()` method of the Promise. 
+Each `.then()` block receives the result of the previous operation and can return a new Promise or a value, 
+which will be passed on to the next `.then()` block in the chain.
+
+Here's an example of promise chaining to simulate fetching data from an API and processing it step by step:
+
+```javascript
+// Simulating an asynchronous API call that returns data after 1 second
+function fetchDataFromAPI() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([1, 2, 3, 4, 5]);
+    }, 1000);
+  });
+}
+
+// Simulating an asynchronous operation to calculate the sum of the array elements
+function calculateSum(data) {
+  return new Promise((resolve) => {
+    const sum = data.reduce((acc, curr) => acc + curr, 0);
+    resolve(sum);
+  });
+}
+
+// Simulating an asynchronous operation to double the sum
+function doubleSum(sum) {
+  return new Promise((resolve) => {
+    resolve(sum * 2);
+  });
+}
+
+// Promise chaining
+fetchDataFromAPI()
+  .then((data) => calculateSum(data))
+  .then((sum) => doubleSum(sum))
+  .then((doubledSum) => {
+    console.log("Doubled Sum:", doubledSum);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+```
+
+In this example, we have three asynchronous functions: `fetchDataFromAPI`, `calculateSum`, and `doubleSum`.
+Each of these functions returns a Promise. We use `.then()` to chain these functions together and perform the calculations step by step.
+
+When the chain is executed, `fetchDataFromAPI` is called first, and the result is passed to the next `.then()` block, where `calculateSum` is called. 
+The sum is then passed to the next `.then()` block, where `doubleSum` is called. Finally, the doubled sum is logged to the console.
+
+If any of the promises in the chain is rejected, the `catch` block at the end will handle the error.
+This way, we can handle errors in a centralized manner for the entire promise chain.
+
+===============================================================================================================================================================
+
+Answer - 5
+Higher-Order Components (HOC) in React are a design pattern used to enhance the functionality and reusability of components.
+A Higher-Order Component is a function that takes a component as input and returns a new component with additional props or behavior.
+It allows you to share logic between components without repeating code.
+
+HOCs work by wrapping a component with another component, which can add or modify props, handle state management, or implement other functionalities.
+They do not modify the original component; instead, they create a new component that includes the desired features.
+
+The basic structure of an HOC looks like this:
+
+```javascript
+const higherOrderComponent = (WrappedComponent) => {
+  // logic and functionality here...
+  return NewComponent;
+};
+```
+
+Here's an example of a simple HOC that adds a `isLoading` prop to a component:
+
+```javascript
+const withLoadingIndicator = (WrappedComponent) => {
+  return class extends React.Component {
+    render() {
+      if (this.props.isLoading) {
+        return <div>Loading...</div>;
+      } else {
+        return <WrappedComponent {...this.props} />;
+      }
+    }
+  };
+};
+```
+
+In this example, the `withLoadingIndicator` HOC takes a `WrappedComponent` as input and returns a new component.
+The new component checks if the `isLoading` prop is true. 
+If it is true, it displays a loading message; otherwise, it renders the `WrappedComponent` with all its original props using the spread operator `...this.props`.
+
+To use the HOC, you can wrap any component with it:
+
+```javascript
+const MyComponent = (props) => {
+  // Your component logic...
+  return <div>{props.data}</div>;
+};
+
+const MyComponentWithLoading = withLoadingIndicator(MyComponent);
+```
+
+Now, `MyComponentWithLoading` is a new component that includes the loading indicator logic. You can use it like any other component, passing props as needed:
+
+```javascript
+<MyComponentWithLoading data="Hello World" isLoading={true} />
+```
+
+HOCs are a powerful pattern in React that promotes code reuse and separation of concerns.
+They allow you to extract common functionalities into reusable components, making your codebase more modular and maintainable.
+However, be cautious not to overuse HOCs, as they can lead to complex component hierarchies and potential performance issues.
+
+===============================================================================================================================================================
+
+Answer - 6
+Callback hell, also known as "pyramid of doom," is a common issue in asynchronous programming where multiple nested callbacks make the code difficult to read,
+understand, and maintain. 
+It occurs when you have several asynchronous operations that depend on the results of each other, leading to deeply nested callback functions.
+
+Here's an example of callback hell:
+
+```javascript
+asyncOperation1((result1) => {
+  // Do something with result1
+  asyncOperation2((result2) => {
+    // Do something with result2
+    asyncOperation3((result3) => {
+      // Do something with result3
+      // ... and so on
+    });
+  });
+});
+```
+
+To solve callback hell, several approaches can be used:
+
+1. Using Promises:
+Promises provide a cleaner and more organized way of handling asynchronous operations. 
+By chaining promises, you can avoid callback hell and improve code readability. Here's an example:
+
+```javascript
+asyncOperation1()
+  .then((result1) => {
+    // Do something with result1
+    return asyncOperation2();
+  })
+  .then((result2) => {
+    // Do something with result2
+    return asyncOperation3();
+  })
+  .then((result3) => {
+    // Do something with result3
+    // ... and so on
+  })
+  .catch((error) => {
+    // Handle errors
+  });
+```
+
+2. Using Async/Await:
+Async/await is a syntactic sugar built on top of Promises, making asynchronous code look more like synchronous code. 
+It simplifies the handling of Promises, making the code more readable and maintainable. Here's an example:
+
+```javascript
+async function myAsyncFunction() {
+  try {
+    const result1 = await asyncOperation1();
+    // Do something with result1
+    const result2 = await asyncOperation2();
+    // Do something with result2
+    const result3 = await asyncOperation3();
+    // Do something with result3
+    // ... and so on
+  } catch (error) {
+    // Handle errors
+  }
+}
+```
+
+3. Using Libraries like async.js:
+Libraries like `async.js` provide powerful functions for handling asynchronous operations in a more structured way. 
+The `async.series`, `async.parallel`, or `async.waterfall` functions can be used to avoid callback hell. Here's an example using `async.series`:
+
+```javascript
+const async = require('async');
+
+async.series([
+  (callback) => {
+    asyncOperation1((result1) => {
+      // Do something with result1
+      callback(null, result1);
+    });
+  },
+  (callback) => {
+    asyncOperation2((result2) => {
+      // Do something with result2
+      callback(null, result2);
+    });
+  },
+  (callback) => {
+    asyncOperation3((result3) => {
+      // Do something with result3
+      callback(null, result3);
+    });
+  }
+], (error, results) => {
+  if (error) {
+    // Handle errors
+  } else {
+    // Use results
+    const [result1, result2, result3] = results;
+    // ... and so on
+  }
+});
+```
+
+By using Promises, async/await, or libraries like `async.js`, you can refactor callback hell into more organized and readable code. 
+This improves code maintainability, reduces errors, and enhances developer productivity.
+================================================================================================================================================================
+
+Answer - 7
+You can use the `Array.reduce()` method to reverse the given array as follows:
+
+```javascript
+const arr = [1, 2, 3, 4, 5];
+
+const reversedArr = arr.reduce((acc, current) => {
+  acc.unshift(current);
+  return acc;
+}, []);
+
+console.log(reversedArr); // Output: [5, 4, 3, 2, 1]
+```
+
+In this example, the `Array.reduce()` method is used to iterate through each element of the `arr` array.
+The `acc` parameter serves as the accumulator, and the `current` parameter represents the current element being processed.
+Inside the callback function, we use the `unshift()` method to add each element to the beginning of the `acc` array, 
+effectively reversing the order of the elements. Finally, the initial value of the accumulator is provided as an empty array `[]`,
+and the reversed array is stored in the `reversedArr` variable. The output will be `[5, 4, 3, 2, 1]`, which is the reversed version of the original array.
+
+
+=======================================================================================================================================================================
+Answer - 8
+The numbers 1, 4, 3, and 2 will be logged to the console in the following order:
+
+1. First, the immediately invoked function expression (IIFE) is executed, and the number 1 is logged to the console.
+2. Next, the `console.log(4)` statement is executed, and the number 4 is logged to the console.
+3. Then, the `setTimeout` function with a delay of 0 milliseconds is called, but it will not execute immediately. 
+Instead, it will be added to the event loop and will wait for other synchronous tasks to complete first. So, the number 3 is not logged yet.
+4. After that, the `setTimeout` function with a delay of 1000 milliseconds is called and will be added to the event loop, 
+waiting for 1 second to execute. So, the number 2 is not logged yet.
+5. The synchronous tasks in the function have been completed, and the event loop starts processing the tasks in its queue. 
+Since the delay of the second `setTimeout` is 0 milliseconds, it will be executed next, and the number 3 will be logged to the console.
+6. Finally, after waiting for 1 second, the first `setTimeout` function is executed, and the number 2 is logged to the console.
+
+So, the output will be:
+
+```
+1
+4
+3
+2
+```
+=================================================================================================================================================================
+
+Answer - 9
+The code will output the following to the console:
+
+```
+array 1: length=5 last=j,o,n,e,s
+array 2: length=5 last=j,o,n,e,s
+```
+
+Explanation:
+
+1. `arr1` is initialized with the result of splitting the string "john" into an array of characters, so `arr1` becomes `['j', 'o', 'h', 'n']`.
+2. `arr2` is assigned the reference to `arr1` after reversing it using the `reverse()` method. Both `arr1` and `arr2` now point to the same array in memory,
+which is `['n', 'h', 'o', 'j']`.
+3. `arr3` is initialized with the result of splitting the string "jones" into an array of characters, so `arr3` becomes `['j', 'o', 'n', 'e', 's']`.
+4. `arr2.push(arr3)` appends the array `arr3` to the end of `arr2`. Now `arr2` becomes `['n', 'h', 'o', 'j', ['j', 'o', 'n', 'e', 's']]`. 
+Note that the `push()` method adds the entire `arr3` array as a single element to `arr2`.
+5. The `console.log` statements print the lengths and last elements of `arr1` and `arr2`. 
+Since both `arr1` and `arr2` reference the same array, their lengths are the same (5) and their last elements are the same (`'j,o,n,e,s'`), 
+which is the entire `arr3` array.
+The `slice(-1)` method returns the last element of the array, which in this case is the nested array `['j', 'o', 'n', 'e', 's']`.
+
+===================================================================================================================================================================
+
+Answer - 10
+The output of the code will be as follows:
+
+```
+1
+4
+2
+3
+```
+
+Explanation:
+
+1. `console.log(1);`: This prints `1` to the console immediately.
+2. `setTimeout(printNumber, 0, 2);`: This schedules the `printNumber` function to be executed with the argument `2` after 0 milliseconds. 
+However, even though the timeout is set to 0 milliseconds, the function is added to the task queue and will be executed after the current call stack is empty.
+Since the current call stack includes the two `console.log` statements, the `printNumber` function with the argument `2` will be executed after those statements. 
+So, it prints `2` to the console.
+3. `setTimeout(printNumber, 100, 3);`: This schedules the `printNumber` function to be executed with the argument `3` after 100 milliseconds. 
+Since there is a delay of 100 milliseconds, the `printNumber` function with the argument `3` will be executed after all the previous statements are executed. 
+So, it prints `3` to the console.
+4. `console.log(4);`: This prints `4` to the console immediately after the first `console.log` statement.
+
+Overall, the output is in the sequence `1 -> 4 -> 2 -> 3`.
+
+===================================================================================================================================================================
+
+Answer - 11
+The given code has a small issue with the initial value of the accumulator in the `reduce` function.
+The accumulator should be an object with two arrays (`evens` and `odds`) to store even and odd numbers separately.
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const result = numbers.reduce((acc, num) => {
+  if (num % 2 === 0) {
+    acc.evens.push(num);
+  } else {
+    acc.odds.push(num);
+  }
+  return acc;
+}, { evens: [], odds: [] }); // Set the initial value of the accumulator as an object with two empty arrays
+
+console.log(result);
+```
+
+Output:
+```
+{ evens: [2, 4], odds: [1, 3, 5] }
+```
+
+Explanation:
+The `reduce` function is used to iterate over the `numbers` array and accumulate the even and odd numbers into separate arrays within the `result` object.
+
+1. The `reduce` function starts with an initial value `{ evens: [], odds: [] }`, which is an object with two empty arrays.
+2. For each element in the `numbers` array, the callback function checks if the number is even or odd and pushes it into the respective array in the accumulator.
+3. After processing all elements in the `numbers` array, the `reduce` function returns the updated `acc`, 
+which contains the even numbers in the `evens` array and the odd numbers in the `odds` array.
+4. The `result` object is then logged to the console, showing the even and odd numbers separated into their respective arrays.
+=================================================================================================================================================================
