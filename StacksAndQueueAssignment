@@ -1,0 +1,71 @@
+                        Stack And Queue Assignments
+
+Answer - 1
+import java.util.Stack;
+
+public class Solution {
+    public String makeGood(String s) {
+        Stack<Character> stack = new Stack<>();
+        
+        for (char ch : s.toCharArray()) {
+            if (!stack.isEmpty() && Math.abs(stack.peek() - ch) == 32) {
+                stack.pop();
+            } else {
+                stack.push(ch);
+            }
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
+        }
+        
+        return sb.reverse().toString();
+    }
+}
+==================================================================================================================================================================
+
+Answer - 2
+class Solution {
+    public String removeDuplicates(String s) {
+        Stack<Character> stack = new Stack<>();
+        for(char ch : s.toCharArray()){
+            if(!stack.isEmpty() && Math.abs(stack.peek() - ch)==0){
+                stack.pop();
+            }
+            else{
+                stack.push(ch);
+            }
+            
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty()){
+            sb.append(stack.pop());
+        }
+        return sb.reverse().toString();
+    }
+}
+==================================================================================================================================================================
+
+Answer - 3
+import java.util.Stack;
+
+class StockSpanner {
+    private Stack<int[]> stack;
+
+    public StockSpanner() {
+        stack = new Stack<>();
+    }
+
+    public int next(int price) {
+        int span = 1;
+        while (!stack.isEmpty() && price >= stack.peek()[0]) {
+            span += stack.pop()[1];
+        }
+        stack.push(new int[] { price, span });
+        return span;
+    }
+}
+===============================================================================================================================================================
+
+Answer - 4
