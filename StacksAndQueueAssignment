@@ -69,3 +69,218 @@ class StockSpanner {
 ===============================================================================================================================================================
 
 Answer - 4
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Solution {
+    public int timeToBuyTickets(int[] tickets, int k) {
+        int n = tickets.length;
+        Queue<Integer> queue = new ArrayDeque<>();
+
+        // Initialize the queue with the number of tickets each person wants to buy
+        for (int i = 0; i < n; i++) {
+            queue.add(tickets[i]);
+        }
+
+        int time = 0;
+
+        while (!queue.isEmpty()) {
+            int ticketsToBuy = queue.poll();
+
+            // If the current person is the k-th person and they have tickets left to buy
+            if (k == 0 && ticketsToBuy > 0) {
+                time++;
+                ticketsToBuy--;
+            }
+
+            // If the current person is not the k-th person or they don't have tickets left to buy,
+            // put them back in the queue
+            if (ticketsToBuy > 0) {
+                queue.add(ticketsToBuy);
+            }
+
+            // Move to the next person
+            k = (k + 1) % n;
+        }
+
+        return time;
+    }
+}
+===================================================================================================================================================
+
+Answer - 5
+import java.util.ArrayList;
+import java.util.List;
+
+class ProductOfNumbers {
+    private List<Integer> prefixProduct;
+    private int numCount;
+
+    public ProductOfNumbers() {
+        prefixProduct = new ArrayList<>();
+        numCount = 0;
+        // We add a 1 at the beginning to act as the initial prefix product
+        prefixProduct.add(1);
+    }
+
+    public void add(int num) {
+        if (num == 0) {
+            // If the new number is 0, reset the prefix product list and count
+            prefixProduct.clear();
+            prefixProduct.add(1);
+            numCount = 0;
+        } else {
+            // Calculate the new prefix product by multiplying with the last element in the list
+            int prevProduct = prefixProduct.get(prefixProduct.size() - 1);
+            prefixProduct.add(prevProduct * num);
+            numCount++;
+        }
+    }
+
+    public int getProduct(int k) {
+        if (k > numCount) {
+            return 0;
+        }
+
+        // Calculate the product of the last k integers using the prefix product list
+        int totalSize = prefixProduct.size();
+        int prevProduct = prefixProduct.get(totalSize - k - 1);
+        int currentProduct = prefixProduct.get(totalSize - 1);
+        return currentProduct / prevProduct;
+    }
+}
+==================================================================================================================================================
+
+Answer - 6
+import java.util.Stack;
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        Stack<Integer> stack = new Stack<>();
+        int maxArea = 0;
+
+        for (int i = 0; i < heights.length; i++) {
+            // Keep the indices of increasing bar heights in the stack
+            while (!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                int height = heights[stack.pop()];
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, height * width);
+            }
+            stack.push(i);
+        }
+
+        // Calculate the area of the remaining bars in the stack
+        while (!stack.isEmpty()) {
+            int height = heights[stack.pop()];
+            int width = stack.isEmpty() ? heights.length : heights.length - stack.peek() - 1;
+            maxArea = Math.max(maxArea, height * width);
+        }
+
+        return maxArea;
+    }
+}
+=============================================================================================================================================================
+
+Answer - 7
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int[] result = new int[n - k + 1];
+        int resultIndex = 0;
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < n; i++) {
+            // Remove elements outside the current window from the front of the deque
+            while (!deque.isEmpty() && deque.peek() < i - k + 1) {
+                deque.poll();
+            }
+
+            // Remove elements that are smaller than the current element from the back of the deque
+            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+
+            // Add the current index to the back of the deque
+            deque.offer(i);
+
+            // After the first k elements, start recording the maximum element in each window
+            if (i >= k - 1) {
+                result[resultIndex++] = nums[deque.peek()];
+            }
+        }
+
+        return result;
+    }
+}
+==========================================================================================================================================================
+
+Answer - 8
+class CircularQueue {
+    private int[] queue;
+    private int front;
+    private int rear;
+    private int size;
+    
+    public CircularQueue(int k) {
+        queue = new int[k];
+        front = -1;
+        rear = -1;
+        size = 0;
+    }
+    
+    public boolean enQueue(int value) {
+        if (isFull()) {
+            return false;
+        }
+        
+        if (isEmpty()) {
+            front = 0;
+        }
+        
+        rear = (rear + 1) % queue.length;
+        queue[rear] = value;
+        size++;
+        return true;
+    }
+    
+    public boolean deQueue() {
+        if (isEmpty()) {
+            return false;
+        }
+        
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % queue.length;
+        }
+        
+        size--;
+        return true;
+    }
+    
+    public int Front() {
+        if (isEmpty()) {
+            return -1;
+        }
+        return queue[front];
+    }
+    
+    public int Rear() {
+        if (isEmpty()) {
+            return -1;
+        }
+        return queue[rear];
+    }
+    
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    
+    public boolean isFull() {
+        return size == queue.length;
+    }
+}
